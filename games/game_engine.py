@@ -17,5 +17,5 @@ def generate_math_game():
         'num_2': num_2,
         'answer': answer
     }
-    
-    #problem 2
+
+    return problem_1
