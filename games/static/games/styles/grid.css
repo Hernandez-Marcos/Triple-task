@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden
+}
+
+.games-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    
+}
+
+.grid-game {
+    display: grid;
+    width: 500px;
+    height: 500px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    background-color: white;
+    gap: 2px;
+    margin: auto;
+}
+
+.square {
+}
+
+.square.blue {
+    background-color: blue;
+}
+
+.square.red {
+    background-color: red;
+}
