@@ -1,6 +1,10 @@
 {% extends 'main.html' %}
 {% load static %}
 
+{% block scripts %}
+<script src="{% static 'games/js/validate.js' %}" defer></script>
+{% endblock scripts %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'games/styles/grid.css' %}">
 {% endblock extra_css %}
@@ -11,6 +15,7 @@
     <div class="math-game">
         {{math_problem.num_1}} * {{math_problem.num_2}} =
         <input type="number">
+        <button id="submit-math-answer" type="button">Submit</button>
     </div>
     <div class="grid-game">
         {% for row in grid %}
