@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from . import game_engine
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -13,4 +14,5 @@ def index(request):
 
 @api_view(['POST'])
 def validate(request):
-    pass
+    
+    return Response(request.data)
