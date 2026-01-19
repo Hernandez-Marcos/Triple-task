@@ -42,12 +42,18 @@ function updateGridGame(data) {
 
 function handleGridGame(event) {
     const game = "grid"
+    let answer = null
 
     if (!event.target.classList.contains("square")) {
         return
     }
     
-    answer = event.target.classList.contains("red") ? "red" : "blue"
+
+    if (event.target.classList.contains("red")) {
+        answer = "red";
+      } else if (event.target.classList.contains("blue")) {
+        answer = "blue";
+      }
 
     console.log("holaaa", answer)
 
