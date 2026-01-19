@@ -11,6 +11,7 @@ def index(request):
     math_problem = game_engine.generate_math_game()
 
     request.session["expected_math_answer"] = math_problem["answer"]
+    request.session["expected_grid_answer"] = grid["answer"]
 
     context = {
         'grid': grid["grid"],
@@ -37,13 +38,20 @@ def validate(request):
 
         return Response({
             "correct": correct,
-            "num_1": new_math_problem["num_1"],
-            "num_2": new_math_problem["num_2"]
+            "num_1": new_math_problem["problem"]["num_1"],
+            "num_2": new_math_problem["problem"]["num_2"]
         })   
 
     elif game == "grid":
         serializer = serializers.gridSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
+        user_answer = serializer.validated_data["answer"]
+        expected_answer = request.session["expected_grid_answer"]
 
-        return Response({1:1})
+        correct = user_answer == expected_answer
+
+        new_grid = game_engine.generate_grid_game()
+        request.session["expected_grid_answer"] = new_grid["answer"]
+
+        return Response({1:1, 2: correct})
