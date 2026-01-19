@@ -14,6 +14,7 @@ function updateMathGame(data) {
 
 function handleMathGame() {
     const answer = document.getElementById("math-answer").value
+    const game = "math"
 
     if (answer == "") {
         return
@@ -21,7 +22,7 @@ function handleMathGame() {
         
     fetch("/games/api/validate/", {
         method: "POST",
-        body: JSON.stringify({ "answer": answer}),
+        body: JSON.stringify({ "answer": answer, "game": game}),
         headers: {
             "Content-Type": "application/json",
         },

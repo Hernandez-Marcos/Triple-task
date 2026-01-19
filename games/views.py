@@ -21,19 +21,22 @@ def index(request):
 
 @api_view(['POST'])
 def validate(request):
-    serializer = serializers.mathSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
+    game = request.data.get("game")
+    print(game)
+    if game == "math":
+        serializer = serializers.mathSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-    user_answer = serializer.validated_data["answer"]
-    expected_answer = request.session["expected_answer"]
+        user_answer = serializer.validated_data["answer"]
+        expected_answer = request.session["expected_answer"]
 
-    correct = user_answer == expected_answer
+        correct = user_answer == expected_answer
 
-    new_math_problem = game_engine.generate_math_game()
-    request.session["expected_answer"] = new_math_problem["answer"]
+        new_math_problem = game_engine.generate_math_game()
+        request.session["expected_answer"] = new_math_problem["answer"]
 
-    return Response({
-        "correct": correct,
-        "num_1": new_math_problem["num_1"],
-        "num_2": new_math_problem["num_2"]
-    })
+        return Response({
+            "correct": correct,
+            "num_1": new_math_problem["num_1"],
+            "num_2": new_math_problem["num_2"]
+        })
