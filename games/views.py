@@ -13,8 +13,8 @@ def index(request):
     request.session["expected_math_answer"] = math_problem["answer"]
 
     context = {
-        'grid': grid,
-        'math_problem': math_problem
+        'grid': grid["grid"],
+        'math_problem': math_problem["problem"]
     }
     
     return render(request, 'games/index.html', context)
