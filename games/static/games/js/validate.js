@@ -13,8 +13,9 @@ function updateMathGame(data) {
 }
 
 function handleMathGame() {
-    const answer = document.getElementById("math-answer").value
     const game = "math"
+    const answer = document.getElementById("math-answer").value
+    
 
     if (answer == "") {
         return
@@ -33,3 +34,33 @@ function handleMathGame() {
 }
 
 document.getElementById("submit-math-answer").addEventListener("click", handleMathGame)
+
+
+function updateGridGame(data) {
+    console.log(data)
+}
+
+function handleGridGame(event) {
+    const game = "grid"
+
+    if (!event.target.classList.contains("square")) {
+        return
+    }
+    
+    answer = event.target.classList.contains("red") ? "red" : "blue"
+
+    console.log("holaaa", answer)
+
+    fetch("/games/api/validate/", {
+        method: "POST",
+        body: JSON.stringify({ "answer": answer, "game": game}),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+      .then((res) => res.json())
+      .then((res) => updateGridGame(res))
+
+}
+
+document.querySelector(".grid-game").addEventListener("click", handleGridGame)

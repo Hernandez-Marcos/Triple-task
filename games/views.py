@@ -22,7 +22,7 @@ def index(request):
 @api_view(['POST'])
 def validate(request):
     game = request.data.get("game")
-    print(game)
+    
     if game == "math":
         serializer = serializers.mathSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -39,4 +39,8 @@ def validate(request):
             "correct": correct,
             "num_1": new_math_problem["num_1"],
             "num_2": new_math_problem["num_2"]
-        })
+        })   
+
+    elif game == "grid":
+        
+        return Response({1:1})
