@@ -54,4 +54,9 @@ def validate(request):
         new_grid = game_engine.generate_grid_game()
         request.session["expected_grid_answer"] = new_grid["answer"]
 
-        return Response({1:1, 2: correct})
+        return Response({
+            "correct": correct,
+            "grid": new_grid["grid"]
+        })
+    else:
+        return Response({"error": "invalid game"}, status=400)

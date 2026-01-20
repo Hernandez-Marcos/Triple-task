@@ -40,7 +40,19 @@ document.getElementById("submit-math-answer").addEventListener("click", handleMa
 // Grid game
 
 function updateGridGame(data) {
+    const gridContainer = document.querySelector(".grid-game")
+
+    gridContainer.innerHTML = ""
+
     console.log(data)
+
+    for (const row of data.grid) {
+        for (const color of row) {
+            const squareEl = document.createElement("div")
+            squareEl.classList.add("square", color)
+            gridContainer.appendChild(squareEl)
+        }
+    }
 }
 
 function handleGridGame(event) {
