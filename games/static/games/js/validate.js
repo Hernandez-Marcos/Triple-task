@@ -1,3 +1,5 @@
+// Math game
+
 function updateMathGame(data) {
     let num_1 = document.getElementById("num-1")
     let num_2 = document.getElementById("num-2")
@@ -35,6 +37,7 @@ function handleMathGame() {
 
 document.getElementById("submit-math-answer").addEventListener("click", handleMathGame)
 
+// Grid game
 
 function updateGridGame(data) {
     console.log(data)
