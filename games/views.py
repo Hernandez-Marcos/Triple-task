@@ -25,7 +25,7 @@ def validate(request):
     game = request.data.get("game")
     
     if game == "math":
-        serializer = serializers.mathSerializer(data=request.data)
+        serializer = serializers.MathSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         user_answer = serializer.validated_data["answer"]
@@ -43,7 +43,7 @@ def validate(request):
         })   
 
     elif game == "grid":
-        serializer = serializers.gridSerializer(data=request.data)
+        serializer = serializers.GridSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         user_answer = serializer.validated_data["answer"]

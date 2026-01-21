@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-class mathSerializer(serializers.Serializer):
+class MathSerializer(serializers.Serializer):
     answer = serializers.IntegerField()
 
-class gridSerializer(serializers.Serializer):
+class GridSerializer(serializers.Serializer):
     answer = serializers.ChoiceField(choices=["red", "blue"])
