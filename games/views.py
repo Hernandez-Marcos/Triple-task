@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . import game_engine
+from .game_engine import grid_game, math_game
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from . import serializers
@@ -7,8 +7,8 @@ from . import serializers
 # Create your views here.
 
 def index(request):
-    grid = game_engine.generate_grid_game()
-    math_problem = game_engine.generate_math_game()
+    grid = grid_game.generate_grid_game()
+    math_problem = math_game.generate_math_game()
 
     request.session["expected_math_answer"] = math_problem["answer"]
     request.session["expected_grid_answer"] = grid["answer"]
@@ -33,7 +33,7 @@ def validate(request):
 
         correct = user_answer == expected_answer
 
-        new_math_problem = game_engine.generate_math_game()
+        new_math_problem = math_game.generate_math_game()
         request.session["expected_math_answer"] = new_math_problem["answer"]
 
         return Response({
@@ -51,7 +51,7 @@ def validate(request):
 
         correct = user_answer == expected_answer
 
-        new_grid = game_engine.generate_grid_game()
+        new_grid = grid_game.generate_grid_game()
         request.session["expected_grid_answer"] = new_grid["answer"]
 
         return Response({
