@@ -80,7 +80,7 @@ function handleGridGame(event) {
         },
     })
       .then((res) => res.json())
-      .then((res) => updateGridGame(res))
+      .then((res) => {updateGridGame(res)})
 
 }
 

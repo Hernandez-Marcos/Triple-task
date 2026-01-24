@@ -2,15 +2,23 @@
 {% load static %}
 
 {% block scripts %}
+<script src="{% static 'games/js/timer.js' %}" defer></script>
 <script src="{% static 'games/js/validate.js' %}" defer></script>
 {% endblock scripts %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'games/styles/grid.css' %}">
+<link rel="stylesheet" href="{% static 'games/styles/timer.css' %}">
+<link rel="stylesheet" href="{% static 'games/styles/start-screen.css' %}">
 {% endblock extra_css %}
 
 
 {% block content %}
+<div class="start-screen" style="height: 100vh">
+    <button id="start-game">Start</button>
+</div>
+<div class="timer-bar"></div>
+
 <div class="games-container">
     <div class="math-game">
         <span id="num-1">{{math_problem.num_1}}</span> * <span id="num-2">{{math_problem.num_2}}</span> =
