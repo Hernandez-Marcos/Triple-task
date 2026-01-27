@@ -26,6 +26,9 @@ def index(request):
 @api_view(['POST'])
 def validate(request):
     game = request.data.get("game")
+
+    if timezone.now().timestamp() > request.session.get("time_end", 0):
+        return Response({"error": "time over"}, status=403)
     
     if game == "math":
         serializer = serializers.MathSerializer(data=request.data)
