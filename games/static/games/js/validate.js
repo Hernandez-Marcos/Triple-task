@@ -79,8 +79,17 @@ function handleGridGame(event) {
             "Content-Type": "application/json",
         },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+            console.log("Error: time ended", res.status)
+            throw new Error("time ended") 
+        }
+        return res.json()
+      })
       .then((res) => {updateGridGame(res)})
+      .catch((err) => {
+        console.log(err)
+      })
 
 }
 
