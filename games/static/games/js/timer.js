@@ -16,6 +16,12 @@ function startTimer() {
             timeRemaining -= 0.05
             const widthPercent = (timeRemaining / totalTime) * 100
             timerBarEl.style.width = widthPercent + "%"
+
+            if (timeRemaining <= 0) {
+                clearInterval(intervalId)
+                const finishScreenEl = document.querySelector(".finish-screen")
+                finishScreenEl.style.display = "block"
+            }
         }, 50)
 
         console.log("asdasdasdasd", timeRemaining)
