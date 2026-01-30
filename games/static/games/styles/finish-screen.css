@@ -2,4 +2,6 @@
     display: none;
     height: 100vh;
     background-color: red;
+    justify-content: center;
+    align-items: center;
 }
