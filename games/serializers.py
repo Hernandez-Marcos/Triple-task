@@ -5,6 +5,3 @@ class MathSerializer(serializers.Serializer):
 
 class GridSerializer(serializers.Serializer):
     answer = serializers.ChoiceField(choices=["red", "blue"])
-
-class TimerSerializer(serializers.Serializer):
-    pass
