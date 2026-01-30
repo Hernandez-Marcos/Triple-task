@@ -19,6 +19,7 @@ function startTimer() {
 
             if (timeRemaining <= 0) {
                 clearInterval(intervalId)
+                timerBarEl.style.width = "0%"
                 const finishScreenEl = document.querySelector(".finish-screen")
                 finishScreenEl.style.display = "flex"
             }
