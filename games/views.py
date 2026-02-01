@@ -96,7 +96,7 @@ def timer(request):
 
 @api_view(['GET'])
 def first_pattern(request):
-    pattern = request.session["expeced_pattern_answer"]
+    pattern = request.session["expected_pattern_answer"]
     return Response({
         "pattern": pattern
     })
