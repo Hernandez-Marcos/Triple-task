@@ -70,8 +70,18 @@ function getFirstPattern() {
             patternContainer.style.backgroundColor = res.pattern[count]
             count++
 
+            // Reinicia animación CSS para pulso
+            patternContainer.classList.remove("pulse");
+            void patternContainer.offsetWidth; // fuerza recalculo
+            patternContainer.classList.add("pulse");
+
             if (count >= res.pattern.length) {
                 clearInterval(intervalId)
+                setTimeout(() => {
+                    patternContainer.style.backgroundColor = "white"
+                    patternContainer.classList.remove("pulse");
+                }, 750)
+
             }            
         }, 750)
     })
