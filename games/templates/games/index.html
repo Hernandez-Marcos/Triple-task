@@ -7,7 +7,10 @@
 {% endblock scripts %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'games/styles/shared.css' %}">
+<link rel="stylesheet" href="{% static 'games/styles/math.css' %}">
 <link rel="stylesheet" href="{% static 'games/styles/grid.css' %}">
+<link rel="stylesheet" href="{% static 'games/styles/pattern.css' %}">
 <link rel="stylesheet" href="{% static 'games/styles/timer.css' %}">
 <link rel="stylesheet" href="{% static 'games/styles/start-screen.css' %}">
 <link rel="stylesheet" href="{% static 'games/styles/finish-screen.css' %}">
@@ -25,17 +28,22 @@
 <div class="timer-bar"></div>
 
 <div class="games-container">
-    <div class="math-game">
+    <div class="math-game game-padding">
         <span id="num-1">{{math_problem.num_1}}</span> * <span id="num-2">{{math_problem.num_2}}</span> =
         <input type="number" id="math-answer">
         <button id="submit-math-answer" type="button">Submit</button>
     </div>
-    <div class="grid-game">
+    <div class="grid-game game-padding">
         {% for row in grid %}
             {% for square in row %}
                 <div class="square {{square}}"></div>
             {% endfor %}
         {% endfor %}
+    </div>
+    <div class="pattern-game game-padding">
+        <button class="pattern-button blue"></button>
+        <button class="pattern-button green"></button>
+        <button class="pattern-button yellow"></button>
     </div>
 </div>
 {% endblock content %}

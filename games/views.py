@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .game_engine import grid_game, math_game
+from .game_engine import grid_game, math_game, pattern_game
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from . import serializers
@@ -11,9 +11,11 @@ import datetime
 def index(request):
     grid = grid_game.generate_grid_game()
     math_problem = math_game.generate_math_game()
+    pattern = pattern_game.generate_pattern_game()
 
     request.session["expected_math_answer"] = math_problem["answer"]
     request.session["expected_grid_answer"] = grid["answer"]
+    request.session["expected_pattern_answer"] = pattern["answer"]
 
     context = {
         'grid': grid["grid"],
@@ -86,8 +88,15 @@ def timer(request):
     if request.method == "POST":
         #start timer
         print("POST TIMER", request.session)
-        request.session["time_end"] = (timezone.now() + datetime.timedelta(seconds=3)).timestamp()
+        request.session["time_end"] = (timezone.now() + datetime.timedelta(seconds=60)).timestamp()
         return Response({
             "ok": True
         })
-        
+
+
+@api_view(['GET'])
+def getPattern(request):
+    pattern = request.session["expeced_pattern_answer"]
+    return Response({
+        "pattern": pattern
+    })

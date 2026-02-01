@@ -1,33 +1,14 @@
-* {
-    margin: 0;
-    box-sizing: border-box;
-}
-
-body {
-    height: 100vh;
-    overflow: hidden
-}
-
-.games-container {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    
-}
-
 .grid-game {
     display: grid;
-    min-width: 500px;
-    width: 500px;
-    height: 500px;
+    flex: 1;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
     background-color: white;
     gap: 2px;
-    margin: auto;
 }
 
 .square {
+    aspect-ratio: 1/1;
 }
 
 .square.blue {
