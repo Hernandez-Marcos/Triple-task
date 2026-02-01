@@ -39,6 +39,7 @@ document.getElementById("start-game").addEventListener("click", () => {
         const startScreenEl = document.querySelector(".start-screen")
         startScreenEl.style.display = "none"
         startTimer()
+        getFirstPattern()
     })
 })
 
@@ -52,5 +53,26 @@ document.getElementById("play-again").addEventListener("click", () => {
         const finishScreenEl = document.querySelector(".finish-screen")
         finishScreenEl.style.display = "none"
         startTimer()
+        getFirstPattern()
     })
 })
+
+function getFirstPattern() {
+    let count = 0
+    const patternContainer = document.querySelector(".pattern-game")
+
+    fetch("/games/api/first-pattern/", {
+        method: "GET"
+    }).then((res) => res.json())
+    .then((res) => {
+        console.log(res)
+        const intervalId = setInterval(() => {
+            patternContainer.style.backgroundColor = res.pattern[count]
+            count++
+
+            if (count >= res.pattern.length) {
+                clearInterval(intervalId)
+            }            
+        }, 750)
+    })
+}

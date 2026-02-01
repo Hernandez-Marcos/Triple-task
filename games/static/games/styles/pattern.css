@@ -4,6 +4,7 @@
     justify-content: space-around;
     flex: 1;
     gap: 15px;
+    height: 80%;
 }
 
 .pattern-button {
