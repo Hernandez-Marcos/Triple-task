@@ -66,6 +66,8 @@ def validate(request):
             "correct": correct,
             "grid": new_grid["grid"]
         })
+    elif game == "pattern":
+        return Response("hola")
     else:
         return Response({"error": "invalid game"}, status=400)
 

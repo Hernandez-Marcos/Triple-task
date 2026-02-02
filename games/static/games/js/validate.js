@@ -25,7 +25,7 @@ function handleMathGame() {
         
     fetch("/games/api/validate/", {
         method: "POST",
-        body: JSON.stringify({ "answer": answer, "game": game}),
+        body: JSON.stringify({ "answer": answer, "game": game }),
         headers: {
             "Content-Type": "application/json",
         },
@@ -66,15 +66,15 @@ function handleGridGame(event) {
 
     if (event.target.classList.contains("red")) {
         answer = "red";
-      } else if (event.target.classList.contains("blue")) {
+    } else if (event.target.classList.contains("blue")) {
         answer = "blue";
-      }
+    }
 
     console.log("holaaa", answer)
 
     fetch("/games/api/validate/", {
         method: "POST",
-        body: JSON.stringify({ "answer": answer, "game": game}),
+        body: JSON.stringify({ "answer": answer, "game": game }),
         headers: {
             "Content-Type": "application/json",
         },
@@ -94,3 +94,54 @@ function handleGridGame(event) {
 }
 
 document.querySelector(".grid-game").addEventListener("click", handleGridGame)
+
+// Pattern game
+
+function updatePatternGame() {
+    
+}
+
+let patternAnswer = []
+
+function handlePatternGame(event) {
+    const game = "pattern"
+    
+    if (!event.target.classList.contains("pattern-button")) {
+        return
+    }
+
+    if (event.target.classList.contains("blue")) {
+        patternAnswer.push("blue")
+    } else if (event.target.classList.contains("green")) {
+        patternAnswer.push("green")
+    } else if (event.target.classList.contains("yellow")) {
+        patternAnswer.push("yellow")
+    }
+
+    if (patternAnswer.length === 3) {
+        fetch("/games/api/validate/", {
+            method: "POST",
+            body: JSON.stringify({ "game": game, "answer": patternAnswer }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+          .then((res) => {
+            if (!res.ok) {
+                console.log("Error: time ended", res.status)
+                throw new Error("time ended") 
+            }
+            return res.json()
+          })
+          .then((res) => {
+            updatePatternGame(res)
+            patternAnswer = []
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+    }
+
+}
+
+document.querySelector(".pattern-game").addEventListener("click", handlePatternGame)
