@@ -66,8 +66,23 @@ def validate(request):
             "correct": correct,
             "grid": new_grid["grid"]
         })
+
     elif game == "pattern":
-        return Response("hola")
+        serializer = serializers.PatternSerializer(data=request.data) 
+        serializer.is_valid(raise_exception=True)
+        
+        user_answer = serializer.validated_data["answer"]
+        expected_answer = request.session["expected_pattern_answer"]
+
+        correct = user_answer == expected_answer
+
+        new_pattern = pattern_game.generate_pattern_game()
+        request.session["expected_pattern_answer"] = new_pattern["answer"]
+
+        return Response({
+            "correct": correct,
+            "pattern": new_pattern["pattern"]
+        })
     else:
         return Response({"error": "invalid game"}, status=400)
 

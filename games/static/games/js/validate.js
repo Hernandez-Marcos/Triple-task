@@ -97,8 +97,31 @@ document.querySelector(".grid-game").addEventListener("click", handleGridGame)
 
 // Pattern game
 
-function updatePatternGame() {
-    
+function updatePatternGame(data) {
+    const patternContainer = document.querySelector(".pattern-game")
+    let count = 0
+
+    const intervalId = setInterval(() => {
+        patternContainer.style.backgroundColor = data.pattern[count]
+        count++
+
+        // Reinicia animación CSS para pulso
+        patternContainer.classList.remove("pulse");
+        void patternContainer.offsetWidth; // fuerza recalculo
+        patternContainer.classList.add("pulse");
+
+        if (count >= data.pattern.length) {
+            clearInterval(intervalId)
+            setTimeout(() => {
+                patternContainer.style.backgroundColor = "white"
+                patternContainer.classList.remove("pulse");
+            }, 750)
+
+        }            
+    }, 750)
+
+
+    console.log(data)
 }
 
 let patternAnswer = []

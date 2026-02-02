@@ -58,8 +58,8 @@ document.getElementById("play-again").addEventListener("click", () => {
 })
 
 function getFirstPattern() {
-    let count = 0
     const patternContainer = document.querySelector(".pattern-game")
+    let count = 0
 
     fetch("/games/api/first-pattern/", {
         method: "GET"
