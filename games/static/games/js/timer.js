@@ -1,3 +1,7 @@
+window.gameState = {
+    isPatternShowing: true
+}
+
 function startTimer() {
     const timerBarEl = document.querySelector(".timer-bar")
     
@@ -80,6 +84,7 @@ function getFirstPattern() {
                 setTimeout(() => {
                     patternContainer.style.backgroundColor = "white"
                     patternContainer.classList.remove("pulse");
+                    window.gameState.isPatternShowing = false
                 }, 750)
 
             }            
