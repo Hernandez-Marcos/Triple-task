@@ -37,7 +37,7 @@
             {% for num in keypad_digits%}
                 <button class="keypad-button" value="{{num}}">{{num}}</button>
             {% endfor %}
-            <button class="keypad-button">⌫</button>
+            <button class="keypad-button" data-action="delete">⌫</button>
         </div>
     </div>
     <div class="grid-game game-padding">

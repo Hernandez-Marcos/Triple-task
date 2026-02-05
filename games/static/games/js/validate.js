@@ -37,6 +37,28 @@ function handleMathGame() {
 
 document.getElementById("submit-math-answer").addEventListener("click", handleMathGame)
 
+//math-keypad
+
+function handleMathKeypadInput(event) {
+    if (!event.target.classList.contains("keypad-button")) {
+        return
+    }
+
+    const button = event.target
+    
+    const mathAnswerEl = document.getElementById("math-answer")
+
+    if (button.dataset.action === "delete") {
+        mathAnswerEl.value = mathAnswerEl.value.slice(0, -1)
+        return
+    }
+
+    mathAnswerEl.value += button.value
+
+}
+
+document.querySelector(".math-keypad").addEventListener("click", handleMathKeypadInput)
+
 // Grid game
 
 function updateGridGame(data) {
