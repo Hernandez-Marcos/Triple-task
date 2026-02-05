@@ -19,7 +19,8 @@ def index(request):
 
     context = {
         'grid': grid["grid"],
-        'math_problem': math_problem["problem"]
+        'math_problem': math_problem["problem"],
+        'keypad_digits': list(range(10))
     }
 
     return render(request, 'games/index.html', context)
