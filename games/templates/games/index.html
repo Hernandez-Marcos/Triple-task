@@ -29,9 +29,12 @@
 
 <div class="games-container">
     <div class="math-game game-padding">
-        <span id="num-1">{{math_problem.num_1}}</span> * <span id="num-2">{{math_problem.num_2}}</span> =
-        <input type="number" id="math-answer">
-        <button id="submit-math-answer" type="button">Submit</button>
+        <div class="math-problem">
+            <span id="num-1">{{math_problem.num_1}}</span> * <span id="num-2">{{math_problem.num_2}}</span> =
+            <input type="number" id="math-answer">
+            <button id="submit-math-answer" type="button">Submit</button>
+        </div>
+        
 
         <div class="math-keypad">
             {% for num in keypad_digits%}
