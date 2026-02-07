@@ -2,35 +2,35 @@ window.gameState = {
     isPatternShowing: true
 }
 
-function startTimer() {
+function startTimer(timeEnd) {
     const timerBarEl = document.querySelector(".timer-bar")
+
+    console.log("timeend:", timeEnd)
+
+    if (!timeEnd) return
+    //convert miliseconds to seconds
+    let timeNow = Date.now() / 1000
+    console.log("timenow:", timeNow)
+
+    const totalTime = timeEnd - timeNow
+
+    console.log(totalTime)
+
+    const intervalId = setInterval(() => {
+        const timeRemaining = timeEnd - Date.now() / 1000
+        const widthPercent = (timeRemaining / totalTime) * 100
+        timerBarEl.style.width = widthPercent + "%"
+
+        if (timeRemaining <= 0) {
+            clearInterval(intervalId)
+            timerBarEl.style.width = "0%"
+            const finishScreenEl = document.querySelector(".finish-screen")
+            finishScreenEl.style.display = "flex"
+        }
+    }, 50)
+
+    console.log("asdasdasdasd", totalTime)
     
-    fetch("/games/api/timer/", {
-        method: "GET"
-    }).then((res) => res.json())
-    .then((data) => {
-        console.log(data)
-        
-        let timeRemaining = data.time_remaining
-        if (!timeRemaining) return
-
-        const totalTime = timeRemaining
-
-        const intervalId = setInterval(() => {
-            timeRemaining -= 0.05
-            const widthPercent = (timeRemaining / totalTime) * 100
-            timerBarEl.style.width = widthPercent + "%"
-
-            if (timeRemaining <= 0) {
-                clearInterval(intervalId)
-                timerBarEl.style.width = "0%"
-                const finishScreenEl = document.querySelector(".finish-screen")
-                finishScreenEl.style.display = "flex"
-            }
-        }, 50)
-
-        console.log("asdasdasdasd", timeRemaining)
-    })
 }
 
 document.getElementById("start-game").addEventListener("click", () => {
@@ -42,7 +42,7 @@ document.getElementById("start-game").addEventListener("click", () => {
         console.log(res)
         const startScreenEl = document.querySelector(".start-screen")
         startScreenEl.style.display = "none"
-        startTimer()
+        startTimer(res.time_end)
         getFirstPattern()
     })
 })
@@ -56,7 +56,7 @@ document.getElementById("play-again").addEventListener("click", () => {
         console.log(res)
         const finishScreenEl = document.querySelector(".finish-screen")
         finishScreenEl.style.display = "none"
-        startTimer()
+        startTimer(res.time_end)
         getFirstPattern()
     })
 })
