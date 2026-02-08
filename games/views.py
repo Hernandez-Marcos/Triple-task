@@ -113,6 +113,24 @@ def timer(request):
             "time_end": time_end
         })
 
+@api_view(['POST'])
+def game_timers(request):
+    math_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+    grid_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+    pattern_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+
+    request.session["math_time_end"] = math_time_end
+    request.session["grid_time_end"] = grid_time_end
+    request.session["pattern_time_end"] = pattern_time_end
+
+    return Response({
+        "ok": True,
+        "math_time_end": math_time_end,
+        "grid_time_end": grid_time_end,
+        "pattern_time_end": pattern_time_end
+    })
+
+
 
 @api_view(['GET'])
 def first_pattern(request):
