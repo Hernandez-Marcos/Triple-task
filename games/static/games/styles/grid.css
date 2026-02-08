@@ -5,6 +5,8 @@
     grid-template-rows: repeat(5, 1fr);
     background-color: white;
     gap: 2px;
+    position: relative;
+    height: 80%;
 }
 
 .square {

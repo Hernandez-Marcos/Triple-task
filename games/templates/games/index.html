@@ -29,6 +29,7 @@
 
 <div class="games-container">
     <div class="math-game game-padding">
+        <div class="game-timer-bar"></div>
         <div class="math-problem">
             <span id="num-1">{{math_problem.num_1}}</span> * <span id="num-2">{{math_problem.num_2}}</span> =
             <input type="number" id="math-answer">
@@ -44,6 +45,7 @@
         </div>
     </div>
     <div class="grid-game game-padding">
+        <div class="game-timer-bar"></div>
         {% for row in grid %}
             {% for square in row %}
                 <div class="square {{square}}"></div>
@@ -51,6 +53,7 @@
         {% endfor %}
     </div>
     <div class="pattern-game game-padding">
+        <div class="game-timer-bar"></div>
         <button class="pattern-button blue"></button>
         <button class="pattern-button green"></button>
         <button class="pattern-button yellow"></button>
