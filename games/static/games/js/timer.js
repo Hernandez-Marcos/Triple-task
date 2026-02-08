@@ -2,6 +2,67 @@ window.gameState = {
     isPatternShowing: true
 }
 
+const timerConfig = {
+    global: {
+        getEl: () => document.querySelector(".timer-bar"),
+        onFinish: () => {
+            const finishScreenEl = document.querySelector(".finish-screen")
+            finishScreenEl.style.display = "flex"
+        }
+    },
+
+    math: {
+        getEl: () => document.querySelector(".math-game .game-timer-bar"),
+        onFinish: () => {
+            fetch("/games/api/next-game/", {
+                method: "POST",
+                body: JSON.stringify({ game: "math" }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+              .then((res) => res.json())
+              .then((res) => {
+                updateMathGame(res)
+              })
+        }
+    },
+
+    grid: {
+        getEl: () => document.querySelector(".grid-game .game-timer-bar"),
+        onFinish: () => {
+            fetch("/games/api/next-game/", {
+                method: "POST",
+                body: JSON.stringify({ game: "grid" }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+              .then((res) => res.json())
+              .then((res) => {
+                updateGridGame(res)
+              })
+        }
+    },
+    
+    pattern: {
+        getEl: () => document.querySelector(".pattern-game .game-timer-bar"),
+        onFinish: () => {
+            fetch("/games/api/next-game/", {
+                method: "POST",
+                body: JSON.stringify({ game: "pattern" }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+              .then((res) => res.json())
+              .then((res) => {
+                updatePatternGame(res)
+              })
+        }
+    }
+}
+
 function startTimer(timeEnd) {
     const timerBarEl = document.querySelector(".timer-bar")
 

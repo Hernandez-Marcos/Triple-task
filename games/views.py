@@ -87,6 +87,34 @@ def validate(request):
     else:
         return Response({"error": "invalid game"}, status=400)
 
+@api_view(['POST'])
+def next_game(request):
+    game = request.data.get("game")
+
+    if game == "math":
+        new_math_problem = math_game.generate_math_game()
+        request.session["expected_math_answer"] = new_math_problem["answer"]
+
+        return Response({
+            "num_1": new_math_problem["problem"]["num_1"],
+            "num_2": new_math_problem["problem"]["num_2"]
+        })   
+    elif game == "grid":
+        new_grid = grid_game.generate_grid_game()
+        request.session["expected_grid_answer"] = new_grid["answer"]
+
+        return Response({
+            "grid": new_grid["grid"]
+        })
+    elif game == "pattern": 
+        new_pattern = pattern_game.generate_pattern_game()
+        request.session["expected_pattern_answer"] = new_pattern["answer"]
+
+        return Response({
+            "pattern": new_pattern["pattern"]
+        })
+    else:
+        return Response({"error": "invalid game"}, status=400)
 
 @api_view(['GET', 'POST'])
 def timer(request):
