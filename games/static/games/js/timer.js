@@ -44,7 +44,7 @@ const timerConfig = {
               })
         }
     },
-    
+
     pattern: {
         getEl: () => document.querySelector(".pattern-game .game-timer-bar"),
         onFinish: () => {
@@ -63,10 +63,10 @@ const timerConfig = {
     }
 }
 
-function startTimer(timeEnd) {
-    const timerBarEl = document.querySelector(".timer-bar")
-
+function startTimer(timeEnd, type) {
     console.log("timeend:", timeEnd)
+    const {getEl, onFinish} = timerConfig[type]
+    const timerBarEl = getEl()
 
     if (!timeEnd) return
     //convert miliseconds to seconds
@@ -85,8 +85,7 @@ function startTimer(timeEnd) {
         if (timeRemaining <= 0) {
             clearInterval(intervalId)
             timerBarEl.style.width = "0%"
-            const finishScreenEl = document.querySelector(".finish-screen")
-            finishScreenEl.style.display = "flex"
+            onFinish()
         }
     }, 50)
 
@@ -103,7 +102,7 @@ document.getElementById("start-game").addEventListener("click", () => {
         console.log(res)
         const startScreenEl = document.querySelector(".start-screen")
         startScreenEl.style.display = "none"
-        startTimer(res.time_end)
+        startTimer(res.time_end, "global")
         getFirstPattern()
     })
 
@@ -112,9 +111,9 @@ document.getElementById("start-game").addEventListener("click", () => {
     }).then((res) => res.json())
     .then((res) => {
         console.log(res)
-        startTimer(res.math_time_end)
-        startTimer(res.grid_time_end)
-        startTimer(res.pattern_time_end)
+        startTimer(res.math_time_end, "math")
+        startTimer(res.grid_time_end, "grid")
+        startTimer(res.pattern_time_end, "pattern")
     })
 })
 
@@ -127,7 +126,7 @@ document.getElementById("play-again").addEventListener("click", () => {
         console.log(res)
         const finishScreenEl = document.querySelector(".finish-screen")
         finishScreenEl.style.display = "none"
-        startTimer(res.time_end)
+        startTimer(res.time_end, "global")
         getFirstPattern()
     })
 
@@ -136,9 +135,9 @@ document.getElementById("play-again").addEventListener("click", () => {
     }).then((res) => res.json())
     .then((res) => {
         console.log(res)
-        startTimer(res.math_time_end)
-        startTimer(res.grid_time_end)
-        startTimer(res.pattern_time_end)
+        startTimer(res.math_time_end, "math")
+        startTimer(res.grid_time_end, "grid")
+        startTimer(res.pattern_time_end, "pattern")
     })
 })
 
