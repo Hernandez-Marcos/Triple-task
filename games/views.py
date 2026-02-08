@@ -137,4 +137,4 @@ def first_pattern(request):
     pattern = request.session["expected_pattern_answer"]
     return Response({
         "pattern": pattern
-    })
+    })  

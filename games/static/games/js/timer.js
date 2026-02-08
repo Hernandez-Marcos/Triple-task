@@ -45,6 +45,16 @@ document.getElementById("start-game").addEventListener("click", () => {
         startTimer(res.time_end)
         getFirstPattern()
     })
+
+    fetch("/games/api/game-timers/", {
+        method: "POST",
+    }).then((res) => res.json())
+    .then((res) => {
+        console.log(res)
+        startTimer(res.math_time_end)
+        startTimer(res.grid_time_end)
+        startTimer(res.pattern_time_end)
+    })
 })
 
 document.getElementById("play-again").addEventListener("click", () => {
@@ -58,6 +68,16 @@ document.getElementById("play-again").addEventListener("click", () => {
         finishScreenEl.style.display = "none"
         startTimer(res.time_end)
         getFirstPattern()
+    })
+
+    fetch("/games/api/game-timers/", {
+        method: "POST",
+    }).then((res) => res.json())
+    .then((res) => {
+        console.log(res)
+        startTimer(res.math_time_end)
+        startTimer(res.grid_time_end)
+        startTimer(res.pattern_time_end)
     })
 })
 
