@@ -2,6 +2,10 @@ window.gameState = {
     isPatternShowing: true
 }
 
+const activeTimers = {
+
+}
+
 const timerConfig = {
     global: {
         getEl: () => document.querySelector(".timer-bar"),
@@ -101,13 +105,17 @@ function startTimer(timeEnd, type) {
 
     console.log(totalTime)
 
-    const intervalId = setInterval(() => {
+    if (activeTimers[type]) {
+        clearInterval(activeTimers[type])
+    }
+
+    activeTimers[type] = setInterval(() => {
         const timeRemaining = timeEnd - Date.now() / 1000
         const widthPercent = (timeRemaining / totalTime) * 100
         timerBarEl.style.width = widthPercent + "%"
 
         if (timeRemaining <= 0) {
-            clearInterval(intervalId)
+            clearInterval(activeTimers[type])
             timerBarEl.style.width = "0%"
             onFinish()
         }

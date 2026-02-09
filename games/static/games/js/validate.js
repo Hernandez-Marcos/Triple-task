@@ -31,7 +31,17 @@ function handleMathGame() {
         },
     })
       .then((res) => res.json())
-      .then((res) => updateMathGame(res))
+      .then((res) => {
+        updateMathGame(res)
+
+        fetch("/games/api/game-timers/", {
+            method: "POST"
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            startTimer(res.math_time_end, "math")
+          })
+      })
     
 }
 
@@ -111,7 +121,17 @@ function handleGridGame(event) {
         }
         return res.json()
       })
-      .then((res) => {updateGridGame(res)})
+      .then((res) => {
+        updateGridGame(res)
+
+        fetch("/games/api/game-timers/", {
+            method: "POST"
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            startTimer(res.grid_time_end, "grid")
+          })
+    })
       .catch((err) => {
         console.log(err)
       })
@@ -187,6 +207,14 @@ function handlePatternGame(event) {
           .then((res) => {
             updatePatternGame(res)
             patternAnswer = []
+
+            fetch("/games/api/game-timers/", {
+                method: "POST"
+            })
+              .then((res) => res.json())
+              .then((res) => {
+                startTimer(res.pattern_time_end, "pattern")
+              })
           })
           .catch((err) => {
             console.log(err)
