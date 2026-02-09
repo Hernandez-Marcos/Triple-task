@@ -65,6 +65,9 @@ function updateGridGame(data) {
     const gridContainer = document.querySelector(".grid-game")
 
     gridContainer.innerHTML = ""
+    timerBarEl = document.createElement("div")
+    timerBarEl.classList.add("game-timer-bar")
+    gridContainer.appendChild(timerBarEl)
 
     console.log(data)
 

@@ -24,6 +24,14 @@ const timerConfig = {
               .then((res) => res.json())
               .then((res) => {
                 updateMathGame(res)
+                
+                fetch("/games/api/game-timers/", {
+                    method: "POST"
+                })
+                  .then((res) => res.json())
+                  .then((res) => {
+                    startTimer(res.math_time_end, "math")
+                  })
               })
         }
     },
@@ -41,6 +49,14 @@ const timerConfig = {
               .then((res) => res.json())
               .then((res) => {
                 updateGridGame(res)
+
+                fetch("/games/api/game-timers/", {
+                    method: "POST"
+                })
+                  .then((res) => res.json())
+                  .then((res) => {
+                    startTimer(res.grid_time_end, "grid")
+                  })
               })
         }
     },
@@ -58,6 +74,14 @@ const timerConfig = {
               .then((res) => res.json())
               .then((res) => {
                 updatePatternGame(res)
+
+                fetch("/games/api/game-timers/", {
+                    method: "POST"
+                })
+                  .then((res) => res.json())
+                  .then((res) => {
+                    startTimer(res.pattern_time_end, "pattern")
+                  })
               })
         }
     }
