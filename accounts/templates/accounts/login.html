@@ -1,5 +1,9 @@
 {% extends 'main.html' %}
 
 {% block content %}
-test
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Login</button>
+</form>
 {% endblock content %}
