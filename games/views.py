@@ -35,64 +35,93 @@ def apply_penalty_to_global_timer(request):
 
 @api_view(['POST'])
 def validate(request):
-    game = request.data.get("game")
+    serializer = serializers.GameNameSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+
+    game = serializer.validated_data["game"]
+
+    expected_answer = request.session.get(f"expected_{game}_answer")
+    if expected_answer is None:
+        return Response({"error": "Expected answer does not exist"}, status=400)
 
     if timezone.now().timestamp() > request.session.get("time_end", 0):
         return Response({"error": "time over"}, status=403)
     
     if game == "math":
-        serializer = serializers.MathSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        answer_serializer = serializers.MathSerializer(data=request.data)
+        answer_serializer.is_valid(raise_exception=True)
 
-        user_answer = serializer.validated_data["answer"]
-        expected_answer = request.session["expected_math_answer"]
+        user_answer = answer_serializer.validated_data["answer"]
 
         correct = user_answer == expected_answer
+
+        if not correct:
+            try:
+                penalty_time_end = apply_penalty_to_global_timer(request)
+            except ValueError as e:
+                return Response({"error": str(e)}, status=400)
+        else:
+            penalty_time_end = None
 
         new_math_problem = math_game.generate_math_game()
         request.session["expected_math_answer"] = new_math_problem["answer"]
 
         return Response({
             "correct": correct,
+            "penalty_time_end": penalty_time_end,
             "num_1": new_math_problem["problem"]["num_1"],
             "num_2": new_math_problem["problem"]["num_2"]
         })   
 
     elif game == "grid":
-        serializer = serializers.GridSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        answer_serializer = serializers.GridSerializer(data=request.data)
+        answer_serializer.is_valid(raise_exception=True)
 
-        user_answer = serializer.validated_data["answer"]
-        expected_answer = request.session["expected_grid_answer"]
+        user_answer = answer_serializer.validated_data["answer"]
 
         correct = user_answer == expected_answer
+
+        if not correct:
+            try:
+                penalty_time_end = apply_penalty_to_global_timer(request)
+            except ValueError as e:
+                return Response({"error": str(e)}, status=400)
+        else:
+            penalty_time_end = None
 
         new_grid = grid_game.generate_grid_game()
         request.session["expected_grid_answer"] = new_grid["answer"]
 
         return Response({
             "correct": correct,
+            "penalty_time_end": penalty_time_end,
             "grid": new_grid["grid"]
         })
 
     elif game == "pattern":
-        serializer = serializers.PatternSerializer(data=request.data) 
-        serializer.is_valid(raise_exception=True)
+        answer_serializer = serializers.PatternSerializer(data=request.data) 
+        answer_serializer.is_valid(raise_exception=True)
         
-        user_answer = serializer.validated_data["answer"]
-        expected_answer = request.session["expected_pattern_answer"]
+        user_answer = answer_serializer.validated_data["answer"]
 
         correct = user_answer == expected_answer
+
+        if not correct:
+            try:
+                penalty_time_end = apply_penalty_to_global_timer(request)
+            except ValueError as e:
+                return Response({"error": str(e)}, status=400)
+        else:
+            penalty_time_end = None
 
         new_pattern = pattern_game.generate_pattern_game()
         request.session["expected_pattern_answer"] = new_pattern["answer"]
 
         return Response({
             "correct": correct,
+            "penalty_time_end": penalty_time_end,
             "pattern": new_pattern["pattern"]
         })
-    else:
-        return Response({"error": "invalid game"}, status=400)
 
 @api_view(['POST'])
 def next_game(request):
