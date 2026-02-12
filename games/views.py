@@ -25,6 +25,13 @@ def index(request):
 
     return render(request, 'games/index.html', context)
 
+def apply_penalty_to_global_timer(request):
+    actual_time_end = request.session.get("time_end")
+    if actual_time_end is None:
+        raise ValueError("Game not initialized")
+    new_time_end = actual_time_end - 1.5
+    request.session["time_end"] = new_time_end
+    return request.session["time_end"]
 
 @api_view(['POST'])
 def validate(request):
@@ -89,7 +96,22 @@ def validate(request):
 
 @api_view(['POST'])
 def next_game(request):
-    game = request.data.get("game")
+    serializer = serializers.GameNameSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+
+    game = serializer.validated_data["game"]
+
+    game_time_end = request.session.get(f"{game}_time_end")
+    if game_time_end is None:
+        return Response({"error": "Game not initialized"}, status=400)
+    if game_time_end <= timezone.now().timestamp():
+        try:
+            penalty_time_end = apply_penalty_to_global_timer(request)
+        except ValueError as e:
+            return Response({"error": str(e)}, status=400)
+    else:
+        penalty_time_end = None
+
 
     if game == "math":
         new_math_problem = math_game.generate_math_game()
@@ -97,24 +119,25 @@ def next_game(request):
 
         return Response({
             "num_1": new_math_problem["problem"]["num_1"],
-            "num_2": new_math_problem["problem"]["num_2"]
+            "num_2": new_math_problem["problem"]["num_2"],
+            "penalty_time_end": penalty_time_end
         })   
     elif game == "grid":
         new_grid = grid_game.generate_grid_game()
         request.session["expected_grid_answer"] = new_grid["answer"]
 
         return Response({
-            "grid": new_grid["grid"]
+            "grid": new_grid["grid"],
+            "penalty_time_end": penalty_time_end
         })
     elif game == "pattern": 
         new_pattern = pattern_game.generate_pattern_game()
         request.session["expected_pattern_answer"] = new_pattern["answer"]
 
         return Response({
-            "pattern": new_pattern["pattern"]
+            "pattern": new_pattern["pattern"],
+            "penalty_time_end": penalty_time_end
         })
-    else:
-        return Response({"error": "invalid game"}, status=400)
 
 @api_view(['GET', 'POST'])
 def timer(request):
