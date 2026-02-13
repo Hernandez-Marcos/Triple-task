@@ -8,10 +8,6 @@ function updateMathGame(data) {
     num_2.textContent = data["num_2"]
     document.getElementById("math-answer").value = ""
 
-
-
-    console.log(data)
-
 }
 
 function handleMathGame() {
@@ -33,6 +29,10 @@ function handleMathGame() {
       .then((res) => res.json())
       .then((res) => {
         updateMathGame(res)
+
+        if (res.penalty_time_end) {
+            window.gameState.timeEnds["global"] = res.penalty_time_end
+        }
 
         fetch("/games/api/game-timers/", {
             method: "POST",
@@ -83,8 +83,6 @@ function updateGridGame(data) {
     timerBarEl.classList.add("game-timer-bar")
     gridContainer.appendChild(timerBarEl)
 
-    console.log(data)
-
     for (const row of data.grid) {
         for (const color of row) {
             const squareEl = document.createElement("div")
@@ -109,8 +107,6 @@ function handleGridGame(event) {
         answer = "blue";
     }
 
-    console.log("holaaa", answer)
-
     fetch("/games/api/validate/", {
         method: "POST",
         body: JSON.stringify({ "answer": answer, "game": game }),
@@ -127,6 +123,10 @@ function handleGridGame(event) {
       })
       .then((res) => {
         updateGridGame(res)
+
+        if (res.penalty_time_end) {
+            window.gameState.timeEnds["global"] = res.penalty_time_end
+        }
 
         fetch("/games/api/game-timers/", {
             method: "POST",
@@ -173,9 +173,6 @@ function updatePatternGame(data) {
 
         }            
     }, 750)
-
-
-    console.log(data)
 }
 
 let patternAnswer = []
@@ -215,6 +212,10 @@ function handlePatternGame(event) {
           .then((res) => {
             updatePatternGame(res)
             patternAnswer = []
+
+            if (res.penalty_time_end) {
+                window.gameState.timeEnds["global"] = res.penalty_time_end
+            }
 
             fetch("/games/api/game-timers/", {
                 method: "POST",
