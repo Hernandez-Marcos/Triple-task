@@ -15,3 +15,6 @@ class PatternSerializer(serializers.Serializer):
 
 class GameNameSerializer(serializers.Serializer):
     game = serializers.ChoiceField(choices=["math", "grid", "pattern"])
+
+class GameNameOrAllSerializer(serializers.Serializer):
+        game = serializers.ChoiceField(choices=["math", "grid", "pattern", "all"])

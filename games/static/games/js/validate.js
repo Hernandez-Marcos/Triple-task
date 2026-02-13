@@ -35,7 +35,11 @@ function handleMathGame() {
         updateMathGame(res)
 
         fetch("/games/api/game-timers/", {
-            method: "POST"
+            method: "POST",
+            body: JSON.stringify({ game: "math" }),
+            headers: {
+                "Content-Type": "application/json",
+            },
         })
           .then((res) => res.json())
           .then((res) => {
@@ -125,7 +129,11 @@ function handleGridGame(event) {
         updateGridGame(res)
 
         fetch("/games/api/game-timers/", {
-            method: "POST"
+            method: "POST",
+            body: JSON.stringify({ game: "grid" }),
+            headers: {
+                "Content-Type": "application/json",
+            },
         })
           .then((res) => res.json())
           .then((res) => {
@@ -209,7 +217,11 @@ function handlePatternGame(event) {
             patternAnswer = []
 
             fetch("/games/api/game-timers/", {
-                method: "POST"
+                method: "POST",
+                body: JSON.stringify({ game: "pattern"}),
+                headers: {
+                    "Content-Type": "application/json",
+                },
             })
               .then((res) => res.json())
               .then((res) => {

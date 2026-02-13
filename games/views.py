@@ -195,20 +195,36 @@ def timer(request):
 
 @api_view(['POST'])
 def game_timers(request):
-    math_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
-    grid_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
-    pattern_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+    serializer = serializers.GameNameOrAllSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
 
-    request.session["math_time_end"] = math_time_end
-    request.session["grid_time_end"] = grid_time_end
-    request.session["pattern_time_end"] = pattern_time_end
+    game = serializer.validated_data["game"]
 
-    return Response({
-        "ok": True,
-        "math_time_end": math_time_end,
-        "grid_time_end": grid_time_end,
-        "pattern_time_end": pattern_time_end
-    })
+    if game == "all":
+
+        math_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+        grid_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+        pattern_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+
+        request.session["math_time_end"] = math_time_end
+        request.session["grid_time_end"] = grid_time_end
+        request.session["pattern_time_end"] = pattern_time_end
+
+        return Response({
+            "ok": True,
+            "math_time_end": math_time_end,
+            "grid_time_end": grid_time_end,
+            "pattern_time_end": pattern_time_end
+        })
+    else:
+        game_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+
+        request.session[f"{game}_time_end"] = game_time_end
+
+        return Response({
+            "ok": True,
+            f"{game}_time_end": game_time_end
+        })
 
 
 

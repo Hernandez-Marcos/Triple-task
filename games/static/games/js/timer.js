@@ -30,7 +30,11 @@ const timerConfig = {
                 updateMathGame(res)
                 
                 fetch("/games/api/game-timers/", {
-                    method: "POST"
+                    method: "POST",
+                    body: JSON.stringify({ game: "math" }),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                 })
                   .then((res) => res.json())
                   .then((res) => {
@@ -55,7 +59,11 @@ const timerConfig = {
                 updateGridGame(res)
 
                 fetch("/games/api/game-timers/", {
-                    method: "POST"
+                    method: "POST",
+                    body: JSON.stringify({ game: "grid" }),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                 })
                   .then((res) => res.json())
                   .then((res) => {
@@ -80,7 +88,11 @@ const timerConfig = {
                 updatePatternGame(res)
 
                 fetch("/games/api/game-timers/", {
-                    method: "POST"
+                    method: "POST",
+                    body: JSON.stringify({ game: "pattern" }),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                 })
                   .then((res) => res.json())
                   .then((res) => {
@@ -140,6 +152,10 @@ document.getElementById("start-game").addEventListener("click", () => {
 
     fetch("/games/api/game-timers/", {
         method: "POST",
+        body: JSON.stringify({ game: "all" }),
+        headers: {
+            "Content-Type": "application/json",
+        },
     }).then((res) => res.json())
     .then((res) => {
         console.log(res)
@@ -164,6 +180,10 @@ document.getElementById("play-again").addEventListener("click", () => {
 
     fetch("/games/api/game-timers/", {
         method: "POST",
+        body: JSON.stringify({ game: "all" }),
+        headers: {
+            "Content-Type": "application/json",
+        },
     }).then((res) => res.json())
     .then((res) => {
         console.log(res)
