@@ -5,6 +5,16 @@ from rest_framework.response import Response
 from . import serializers
 from django.utils import timezone
 import datetime
+import threading
+from django.contrib.sessions.backends.db import SessionStore
+
+
+session_locks = {}
+
+def get_session_lock(session_key):
+    if session_key not in session_locks:
+        session_locks[session_key] = threading.Lock()
+    return session_locks[session_key]
 
 # Create your views here.
 
@@ -26,11 +36,25 @@ def index(request):
     return render(request, 'games/index.html', context)
 
 def apply_penalty_to_global_timer(request):
-    actual_time_end = request.session.get("time_end")
-    if actual_time_end is None:
-        raise ValueError("Game not initialized")
-    new_time_end = actual_time_end - 1.5
-    request.session["time_end"] = new_time_end
+    session_key = request.session.session_key
+    if session_key is None:
+        request.session.save()
+        session_key = request.session.session_key
+
+    lock = get_session_lock(session_key)
+
+    with lock:
+        
+        session = SessionStore(session_key)
+        actual_time_end = session.get("time_end")
+
+        if actual_time_end is None:
+            raise ValueError("Game not initialized")
+        new_time_end = actual_time_end - 1.5
+        session["time_end"] = new_time_end
+        session.save()
+        request.session["time_end"] = new_time_end
+
     return request.session["time_end"]
 
 @api_view(['POST'])
@@ -233,4 +257,4 @@ def first_pattern(request):
     pattern = request.session["expected_pattern_answer"]
     return Response({
         "pattern": pattern
-    })  
+    })
