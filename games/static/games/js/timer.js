@@ -5,7 +5,8 @@ window.gameState = {
         math: null,
         grid: null,
         pattern: null,
-    }
+    },
+    score: 0
 }
 
 const activeTimers = {
@@ -16,6 +17,9 @@ const timerConfig = {
     global: {
         getEl: () => document.querySelector(".timer-bar"),
         onFinish: () => {
+            window.gameState.score = 0
+            document.getElementById("score-value").textContent = 0
+            
             const finishScreenEl = document.querySelector(".finish-screen")
             finishScreenEl.style.display = "flex"
         }

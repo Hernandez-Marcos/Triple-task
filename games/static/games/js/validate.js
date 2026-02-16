@@ -1,3 +1,5 @@
+scoreValueEl = document.getElementById("score-value")
+
 // Math game
 
 function updateMathGame(data) {
@@ -30,7 +32,10 @@ function handleMathGame() {
       .then((res) => {
         updateMathGame(res)
 
-        if (res.penalty_time_end) {
+        if (res.correct) {
+            window.gameState.score++
+            scoreValueEl.textContent = window.gameState.score
+        } else {
             window.gameState.timeEnds["global"] = res.penalty_time_end
         }
 
@@ -124,7 +129,10 @@ function handleGridGame(event) {
       .then((res) => {
         updateGridGame(res)
 
-        if (res.penalty_time_end) {
+        if (res.correct) {
+            window.gameState.score++
+            scoreValueEl.textContent = window.gameState.score
+        } else {
             window.gameState.timeEnds["global"] = res.penalty_time_end
         }
 
@@ -213,7 +221,10 @@ function handlePatternGame(event) {
             updatePatternGame(res)
             patternAnswer = []
 
-            if (res.penalty_time_end) {
+            if (res.correct) {
+                window.gameState.score++
+                scoreValueEl.textContent = window.gameState.score
+            } else {
                 window.gameState.timeEnds["global"] = res.penalty_time_end
             }
 
