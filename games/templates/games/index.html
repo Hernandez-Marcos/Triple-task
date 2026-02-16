@@ -19,44 +19,49 @@
 
 
 {% block content %}
-<div class="start-screen" style="height: 100vh">
-    <button id="start-game">Start</button>
-</div>
-<div class="finish-screen">
-    <button id="play-again">Play Again</button>
-</div>
-<div class="timer-bar"></div>
-
-<div class="games-container">
-    <div class="math-game game-padding">
-        <div class="game-timer-bar"></div>
-        <div class="math-problem">
-            <span id="num-1">{{math_problem.num_1}}</span> * <span id="num-2">{{math_problem.num_2}}</span> =
-            <input type="number" id="math-answer">
-            <button id="submit-math-answer" type="button">Submit</button>
-        </div>
-        
-
-        <div class="math-keypad">
-            {% for num in keypad_digits%}
-                <button class="keypad-button" value="{{num}}">{{num}}</button>
-            {% endfor %}
-            <button class="keypad-button" data-action="delete">⌫</button>
-        </div>
+<div class="game-layout">
+    <div class="start-screen" style="height: 100vh">
+        <button id="start-game">Start</button>
     </div>
-    <div class="grid-game game-padding">
-        <div class="game-timer-bar"></div>
-        {% for row in grid %}
-            {% for square in row %}
-                <div class="square {{square}}"></div>
-            {% endfor %}
-        {% endfor %}
+    <div class="finish-screen">
+        <button id="play-again">Play Again</button>
     </div>
-    <div class="pattern-game game-padding">
-        <div class="game-timer-bar"></div>
-        <button class="pattern-button blue"></button>
-        <button class="pattern-button green"></button>
-        <button class="pattern-button yellow"></button>
+    
+    <div class="hud">
+        <div class="timer-bar"></div>
+    </div>
+    
+    <div class="games-container">
+        <div class="math-game game-padding">
+            <div class="game-timer-bar"></div>
+            <div class="math-problem">
+                <span id="num-1">{{math_problem.num_1}}</span> * <span id="num-2">{{math_problem.num_2}}</span> =
+                <input type="number" id="math-answer">
+                <button id="submit-math-answer" type="button">Submit</button>
+            </div>
+            
+
+            <div class="math-keypad">
+                {% for num in keypad_digits%}
+                    <button class="keypad-button" value="{{num}}">{{num}}</button>
+                {% endfor %}
+                <button class="keypad-button" data-action="delete">⌫</button>
+            </div>
+        </div>
+        <div class="grid-game game-padding">
+            <div class="game-timer-bar"></div>
+            {% for row in grid %}
+                {% for square in row %}
+                    <div class="square {{square}}"></div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="pattern-game game-padding">
+            <div class="game-timer-bar"></div>
+            <button class="pattern-button blue"></button>
+            <button class="pattern-button green"></button>
+            <button class="pattern-button yellow"></button>
+        </div>
     </div>
 </div>
 {% endblock content %}
