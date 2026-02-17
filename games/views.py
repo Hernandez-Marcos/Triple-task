@@ -210,7 +210,7 @@ def timer(request):
     if request.method == "POST":
         #start timer
         print("POST TIMER", request.session)
-        time_end = (timezone.now() + datetime.timedelta(seconds=60)).timestamp()
+        time_end = (timezone.now() + datetime.timedelta(seconds=30)).timestamp()
         request.session["time_end"] = time_end
         return Response({
             "ok": True,
