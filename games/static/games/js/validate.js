@@ -26,7 +26,9 @@ function handleMathGame() {
         body: JSON.stringify({ "answer": answer, "game": game }),
         headers: {
             "Content-Type": "application/json",
+            "X-CSRFToken": window.csrftoken,
         },
+        mode: "same-origin",
     })
       .then((res) => res.json())
       .then((res) => {
@@ -44,7 +46,9 @@ function handleMathGame() {
             body: JSON.stringify({ game: "math" }),
             headers: {
                 "Content-Type": "application/json",
+                "X-CSRFToken": window.csrftoken,
             },
+            mode: "same-origin",
         })
           .then((res) => res.json())
           .then((res) => {
@@ -117,7 +121,9 @@ function handleGridGame(event) {
         body: JSON.stringify({ "answer": answer, "game": game }),
         headers: {
             "Content-Type": "application/json",
+            "X-CSRFToken": window.csrftoken,
         },
+        mode: "same-origin",
     })
       .then((res) => {
         if (!res.ok) {
@@ -141,7 +147,9 @@ function handleGridGame(event) {
             body: JSON.stringify({ game: "grid" }),
             headers: {
                 "Content-Type": "application/json",
+                "X-CSRFToken": window.csrftoken,
             },
+            mode: "same-origin",
         })
           .then((res) => res.json())
           .then((res) => {
@@ -208,7 +216,9 @@ function handlePatternGame(event) {
             body: JSON.stringify({ "game": game, "answer": patternAnswer }),
             headers: {
                 "Content-Type": "application/json",
+                "X-CSRFToken": window.csrftoken,
             },
+            mode: "same-origin",
         })
           .then((res) => {
             if (!res.ok) {
@@ -233,7 +243,9 @@ function handlePatternGame(event) {
                 body: JSON.stringify({ game: "pattern"}),
                 headers: {
                     "Content-Type": "application/json",
+                    "X-CSRFToken": window.csrftoken,
                 },
+                mode: "same-origin",
             })
               .then((res) => res.json())
               .then((res) => {

@@ -9,6 +9,23 @@ window.gameState = {
     score: 0
 }
 
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+window.csrftoken = getCookie('csrftoken');
+
 const activeTimers = {
 
 }
@@ -22,6 +39,8 @@ const timerConfig = {
 
             fetch("/games/api/match-ended/", {
                 method: "POST",
+                headers: { "X-CSRFToken": window.csrftoken },
+                mode: "same-origin"
             })
             
             const finishScreenEl = document.querySelector(".finish-screen")
@@ -37,7 +56,9 @@ const timerConfig = {
                 body: JSON.stringify({ game: "math" }),
                 headers: {
                     "Content-Type": "application/json",
+                    "X-CSRFToken": window.csrftoken,
                 },
+                mode: "same-origin",
             })
               .then((res) => res.json())
               .then((res) => {
@@ -52,7 +73,9 @@ const timerConfig = {
                     body: JSON.stringify({ game: "math" }),
                     headers: {
                         "Content-Type": "application/json",
+                        "X-CSRFToken": window.csrftoken
                     },
+                    mode: "same-origin",
                 })
                   .then((res) => res.json())
                   .then((res) => {
@@ -70,7 +93,9 @@ const timerConfig = {
                 body: JSON.stringify({ game: "grid" }),
                 headers: {
                     "Content-Type": "application/json",
+                    "X-CSRFToken": window.csrftoken,
                 },
+                mode: "same-origin",
             })
               .then((res) => res.json())
               .then((res) => {
@@ -85,7 +110,9 @@ const timerConfig = {
                     body: JSON.stringify({ game: "grid" }),
                     headers: {
                         "Content-Type": "application/json",
+                        "X-CSRFToken": window.csrftoken,
                     },
+                    mode: "same-origin",
                 })
                   .then((res) => res.json())
                   .then((res) => {
@@ -103,7 +130,9 @@ const timerConfig = {
                 body: JSON.stringify({ game: "pattern" }),
                 headers: {
                     "Content-Type": "application/json",
+                    "X-CSRFToken": window.csrftoken,
                 },
+                mode: "same-origin",
             })
               .then((res) => res.json())
               .then((res) => {
@@ -118,7 +147,9 @@ const timerConfig = {
                     body: JSON.stringify({ game: "pattern" }),
                     headers: {
                         "Content-Type": "application/json",
+                        "X-CSRFToken": window.csrftoken,
                     },
+                    mode: "same-origin",
                 })
                   .then((res) => res.json())
                   .then((res) => {
@@ -160,7 +191,9 @@ function startTimer(timeEnd, type) {
 
 document.getElementById("start-game").addEventListener("click", () => {
     fetch("/games/api/timer/", {
-        method: "POST"
+        method: "POST",
+        headers: { "X-CSRFToken": csrftoken },
+        mode: "same-origin",
     }).then((res) => res.json())
     .then((res) => {
         const startScreenEl = document.querySelector(".start-screen")
@@ -174,7 +207,9 @@ document.getElementById("start-game").addEventListener("click", () => {
         body: JSON.stringify({ game: "all" }),
         headers: {
             "Content-Type": "application/json",
+            "X-CSRFToken": window.csrftoken,
         },
+        mode: "same-origin",
     }).then((res) => res.json())
     .then((res) => {
         startTimer(res.math_time_end, "math")
@@ -185,7 +220,9 @@ document.getElementById("start-game").addEventListener("click", () => {
 
 document.getElementById("play-again").addEventListener("click", () => {
     fetch("/games/api/timer/", {
-        method: "POST"
+        method: "POST",
+        headers: { "X-CSRFToken": csrftoken },
+        mode: "same-origin"
     }).then((res) => res.json())
     .then((res) => {
         const finishScreenEl = document.querySelector(".finish-screen")
@@ -199,7 +236,9 @@ document.getElementById("play-again").addEventListener("click", () => {
         body: JSON.stringify({ game: "all" }),
         headers: {
             "Content-Type": "application/json",
+            "X-CSRFToken": window.csrftoken
         },
+        mode: "same-origin",
     }).then((res) => res.json())
     .then((res) => {
         startTimer(res.math_time_end, "math")
