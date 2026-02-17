@@ -7,6 +7,7 @@ from django.utils import timezone
 import datetime
 import threading
 from django.contrib.sessions.backends.db import SessionStore
+from .models import Match
 
 
 session_locks = {}
@@ -258,3 +259,7 @@ def first_pattern(request):
     return Response({
         "pattern": pattern
     })
+
+@api_view(["POST"])
+def match_ended(request):
+    Match.objects.create(user=request.user, score=request.session["score"])

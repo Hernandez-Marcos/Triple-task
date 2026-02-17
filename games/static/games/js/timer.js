@@ -19,6 +19,10 @@ const timerConfig = {
         onFinish: () => {
             window.gameState.score = 0
             document.getElementById("score-value").textContent = 0
+
+            fetch("/games/api/match-ended/", {
+                method: "POST",
+            })
             
             const finishScreenEl = document.querySelector(".finish-screen")
             finishScreenEl.style.display = "flex"
