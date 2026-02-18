@@ -86,6 +86,7 @@ def validate(request):
             except ValueError as e:
                 return Response({"error": str(e)}, status=400)
         else:
+            request.session["score"] = request.session.get("score", 0) + 1
             penalty_time_end = None
 
         new_math_problem = math_game.generate_math_game()
@@ -112,6 +113,7 @@ def validate(request):
             except ValueError as e:
                 return Response({"error": str(e)}, status=400)
         else:
+            request.session["score"] = request.session.get("score", 0) + 1
             penalty_time_end = None
 
         new_grid = grid_game.generate_grid_game()
@@ -137,6 +139,7 @@ def validate(request):
             except ValueError as e:
                 return Response({"error": str(e)}, status=400)
         else:
+            request.session["score"] = request.session.get("score", 0) + 1
             penalty_time_end = None
 
         new_pattern = pattern_game.generate_pattern_game()
@@ -263,4 +266,6 @@ def first_pattern(request):
 @api_view(["POST"])
 def match_ended(request):
     if request.user.is_authenticated:
-        Match.objects.create(user=request.user, score=request.session["score"]) 
+        Match.objects.create(user=request.user, score=request.session["score"])
+    request.session["score"] = 0
+    return Response({"ok": True})
