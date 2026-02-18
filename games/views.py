@@ -262,4 +262,5 @@ def first_pattern(request):
 
 @api_view(["POST"])
 def match_ended(request):
-    Match.objects.create(user=request.user, score=request.session["score"])
+    if request.user.is_authenticated:
+        Match.objects.create(user=request.user, score=request.session["score"]) 
