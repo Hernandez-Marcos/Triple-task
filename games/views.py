@@ -269,3 +269,7 @@ def match_ended(request):
         Match.objects.create(user=request.user, score=request.session["score"])
     request.session["score"] = 0
     return Response({"ok": True})
+
+def ranking(request):
+    ranking = Match.objects.order_by("-score")[0:10]
+    return render(request, "games/ranking.html", {"ranking": ranking})

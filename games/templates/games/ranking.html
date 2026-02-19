@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<ol>
+    {% for position in ranking %}
+        <li>{{position.user}} - {{position.score}}</li>
+    {% endfor %}
+</ol>
+
+{% endblock content %}
