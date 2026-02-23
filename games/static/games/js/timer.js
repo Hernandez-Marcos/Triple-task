@@ -267,7 +267,7 @@ function getFirstPattern() {
             if (count >= res.pattern.length) {
                 clearInterval(intervalId)
                 setTimeout(() => {
-                    patternContainer.style.backgroundColor = "white"
+                    patternContainer.style.backgroundColor = "#1E1E1E"
                     patternContainer.classList.remove("pulse");
                     window.gameState.isPatternShowing = false
                 }, 750)

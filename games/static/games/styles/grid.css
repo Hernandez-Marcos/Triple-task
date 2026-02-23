@@ -3,14 +3,16 @@
     flex: 1;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    background-color: white;
-    gap: 2px;
+    gap: 10px;
     position: relative;
     height: 80%;
+    background-color: #1E1E1E;
+    border-radius: 15px;
 }
 
 .square {
     aspect-ratio: 1/1;
+    border-radius: 10px;
 }
 
 .square.blue {

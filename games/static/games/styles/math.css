@@ -5,7 +5,8 @@
     justify-content: center;
     position: relative;
     height: 80%;
-
+    background-color: #1E1E1E;
+    border-radius: 15px;
 }
 
 .math-problem {
