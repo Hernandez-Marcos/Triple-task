@@ -33,43 +33,51 @@
     </div>
     
     <div class="games-container">
-        <div class="math-wrapper game-padding">
-            <div class="math-game">
-                <div class="game-timer-bar"></div>
+        <div class="game-wrapper game-padding">
+            <div class="game-card">
+                <div class="math-game">
+                    <div class="game-timer-bar"></div>
 
-                <div class="math-problem">
-                    <span id="num-1">{{math_problem.num_1}}</span> * <span id="num-2">{{math_problem.num_2}}</span> =
-                    <input type="number" id="math-answer">
-                    <button id="submit-math-answer" type="button">Submit</button>
+                    <div class="math-problem">
+                        <span id="num-1">{{math_problem.num_1}}</span> * <span id="num-2">{{math_problem.num_2}}</span> =
+                        <input type="number" id="math-answer">
+                        <button id="submit-math-answer" type="button">Submit</button>
+                    </div>
+                    
+
+                    <div class="math-keypad">
+                        {% for num in keypad_digits%}
+                            <button class="keypad-button" value="{{num}}">{{num}}</button>
+                        {% endfor %}
+                        <button class="keypad-button" data-action="delete">⌫</button>
+                    </div>   
                 </div>
-                
-
-                <div class="math-keypad">
-                    {% for num in keypad_digits%}
-                        <button class="keypad-button" value="{{num}}">{{num}}</button>
-                    {% endfor %}
-                    <button class="keypad-button" data-action="delete">⌫</button>
-                </div>   
             </div>
         </div>
-        <div class="grid-wrapper game-padding">
-            <div class="grid-game">
-                <div class="game-timer-bar"></div>
 
-                {% for row in grid %}
-                    {% for square in row %}
-                        <div class="square {{square}}"></div>
-                    {% endfor %}
-                {% endfor %}           
+        <div class="game-wrapper game-padding">
+            <div class="game-card">
+                <div class="grid-game">
+                    <div class="game-timer-bar"></div>
+
+                    {% for row in grid %}
+                        {% for square in row %}
+                            <div class="square {{square}}"></div>
+                        {% endfor %}
+                    {% endfor %}           
+                </div>
             </div>
         </div>
-        <div class="pattern-wrapper game-padding">
-            <div class="pattern-game">
-                <div class="game-timer-bar"></div>
 
-                <button class="pattern-button blue"></button>
-                <button class="pattern-button green"></button>
-                <button class="pattern-button yellow"></button>   
+        <div class="game-wrapper game-padding">
+            <div class="game-card">
+                <div class="pattern-game">
+                    <div class="game-timer-bar"></div>
+
+                    <button class="pattern-button blue"></button>
+                    <button class="pattern-button green"></button>
+                    <button class="pattern-button yellow"></button>   
+                </div>                
             </div>
         </div>
     </div>
