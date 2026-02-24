@@ -8,7 +8,6 @@
 
 .grid-game {
     display: grid;
-    flex: 1;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
     gap: 10px;

@@ -23,7 +23,6 @@ body {
 .games-container {
     height: 100%;
     display: flex;
-    align-items: center;
 }
 
 .game-padding {
