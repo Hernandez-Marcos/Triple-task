@@ -1,3 +1,11 @@
+.math-wrapper {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    align-items: center;
+    border: 2px solid black;
+}
+
 .math-game {
     flex: 1;
     display: flex;

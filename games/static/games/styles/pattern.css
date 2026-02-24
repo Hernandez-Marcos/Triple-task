@@ -1,3 +1,11 @@
+.pattern-wrapper {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    align-items: center;
+    border: 2px solid black;
+}
+
 .pattern-game {
     display: flex;
     align-items: center;
