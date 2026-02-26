@@ -49,7 +49,7 @@ const timerConfig = {
     },
 
     math: {
-        getEl: () => document.querySelector(".math-game .game-timer-bar"),
+        getEl: () => document.getElementById("math-timer"),
         onFinish: () => {
             fetch("/games/api/next-game/", {
                 method: "POST",
@@ -86,7 +86,7 @@ const timerConfig = {
     },
 
     grid: {
-        getEl: () => document.querySelector(".grid-game .game-timer-bar"),
+        getEl: () => document.getElementById("grid-timer"),
         onFinish: () => {
             fetch("/games/api/next-game/", {
                 method: "POST",
@@ -123,7 +123,7 @@ const timerConfig = {
     },
 
     pattern: {
-        getEl: () => document.querySelector(".pattern-game .game-timer-bar"),
+        getEl: () => document.getElementById("pattern-timer"),
         onFinish: () => {
             fetch("/games/api/next-game/", {
                 method: "POST",

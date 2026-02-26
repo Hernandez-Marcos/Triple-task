@@ -88,9 +88,6 @@ function updateGridGame(data) {
     const gridContainer = document.querySelector(".grid-game")
 
     gridContainer.innerHTML = ""
-    const timerBarEl = document.createElement("div")
-    timerBarEl.classList.add("game-timer-bar")
-    gridContainer.appendChild(timerBarEl)
 
     for (const row of data.grid) {
         for (const color of row) {
