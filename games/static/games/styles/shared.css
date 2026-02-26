@@ -40,10 +40,6 @@ body {
     display: flex;
 }
 
-.game-padding {
-    padding: 20px;
-}
-
 .game-wrapper {
     display: flex;
     flex: 1;
@@ -51,6 +47,7 @@ body {
     align-items: center;
     justify-content: center;
     border: 2px solid black;
+    padding: 20px;
 }
 
 .game-card {
@@ -58,4 +55,5 @@ body {
     width: 100%;
     background-color: #1E1E1E;
     border-radius: 15px;
+    padding: 20px
 }
