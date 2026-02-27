@@ -40,9 +40,14 @@
                 <div class="game-timer-bar" id="math-timer"></div>
                 <div class="math-game">
                     <div class="math-problem">
-                        <span id="num-1">{{math_problem.num_1}}</span> * <span id="num-2">{{math_problem.num_2}}</span> =
-                        <input type="number" id="math-answer">
-                        <button id="submit-math-answer" type="button">Submit</button>
+                        <div class="problem">
+                            <span id="num-1">{{math_problem.num_1}}</span> * <span id="num-2">{{math_problem.num_2}}</span>
+                        </div>
+                        <div class="answer-and-submit">
+                            <input type="number" id="math-answer">
+                            <button id="submit-math-answer" type="button">↩</button>
+                        </div>
+                        
                     </div>
 
                     <div class="math-keypad">
