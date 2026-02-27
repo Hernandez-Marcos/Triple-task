@@ -53,6 +53,11 @@ input::-webkit-inner-spin-button  {
     font-size: 3rem;
 }
 
+#delete-button {
+    background-color: #f25e65;
+    vertical-align: middle;
+}
+
 .math-keypad {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -62,6 +67,11 @@ input::-webkit-inner-spin-button  {
 .math-keypad .keypad-button {
     height: 50px;
     border-radius: 15px;
+    border: 2px solid black;
+    background-color: #df9e62;
+    color: #ffffff;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .math-keypad .keypad-button:first-child {
