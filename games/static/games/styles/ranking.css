@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+}
+
+.ranking-wrapper {
+    height: 93vh;
+    display: flex;
+}
+
+.ranking {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 80%;
+    width: 400px; 
+    margin: auto;
+    border: 2px solid white;
+    color: white;
+    font-size: 2rem;
+}

@@ -1,11 +1,19 @@
 {% extends 'main.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'games/styles/ranking.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
 
-<ol>
-    {% for position in ranking %}
-        <li>{{position.user}} - {{position.score}}</li>
-    {% endfor %}
-</ol>
+<div class="ranking-wrapper">
+    <ol class="ranking">
+        {% for position in ranking %}
+            <li>{{position.user}} - {{position.score}}</li>
+        {% endfor %}
+    </ol>    
+</div>
+
 
 {% endblock content %}
