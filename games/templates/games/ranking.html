@@ -8,6 +8,7 @@
 {% block content %}
 
 <div class="ranking-wrapper">
+    <h2>Ranking</h2>
     <ol class="ranking">
         {% for position in ranking %}
             <li>{{position.user}} - {{position.score}}</li>
