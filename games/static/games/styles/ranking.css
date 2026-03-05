@@ -9,8 +9,12 @@ body {
 }
 
 h2 {
-    color: white;
     font-size: 3rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: #ffd900;;
+
+
 }
 
 .ranking-wrapper {
@@ -19,6 +23,7 @@ h2 {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    padding: 20px 0;
 }
 
 .ranking {
@@ -35,8 +40,7 @@ h2 {
     list-style: none;
     counter-reset: rank;
     -webkit-box-shadow: 0px 0px 50px 13px rgba(255,242,0,0.74);
-    box-shadow: 0px 0px 50px 13px rgba(255,242,0,0.74);
-}
+    box-shadow: 0 0 30px rgba(255,242,0,0.3);}
 
 .ranking li {
     counter-increment: rank;
@@ -55,4 +59,32 @@ h2 {
     left: 1rem;
     text-align: end;
     font-weight: bold;
+}
+
+.ranking::-webkit-scrollbar {
+    width: 12px;
+}
+
+.ranking::-webkit-scrollbar-track {
+    background-color: #121212;
+}
+
+.ranking::-webkit-scrollbar-thumb {
+    background: rgba(255, 242, 0, 0.8);
+    border-radius: 10px;
+}
+
+.ranking li:nth-child(1)::before {
+    color: #ffd700;
+    text-shadow: 0 0 8px rgba(255,215,0,0.7);
+}
+
+.ranking li:nth-child(2)::before {
+    color: #c0c0c0;
+    text-shadow: 0 0 6px rgba(192,192,192,0.6);
+}
+
+.ranking li:nth-child(3)::before {
+    color: #cd7f32;
+    text-shadow: 0 0 6px rgba(205,127,50,0.6);
 }
