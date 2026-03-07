@@ -1,9 +1,18 @@
 {% extends 'main.html' %}
 
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/styles/login.css' %}">
+{% endblock extra_css %}
+
 {% block content %}
-<form action="" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Login</button>
-</form>
+<div class="form-wrapper">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Login</button>
+    </form>    
+</div>
+
 {% endblock content %}

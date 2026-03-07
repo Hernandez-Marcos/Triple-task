@@ -13,8 +13,6 @@ h2 {
     letter-spacing: 2px;
     font-weight: 600;
     color: #ffd900;;
-
-
 }
 
 .ranking-wrapper {
@@ -39,7 +37,8 @@ h2 {
     overflow-y: auto;
     list-style: none;
     counter-reset: rank;
-    box-shadow: 0 0 30px rgba(255,242,0,0.3);}
+    box-shadow: 0 0 30px rgba(255,242,0,0.3);
+}
 
 .ranking li {
     counter-increment: rank;
