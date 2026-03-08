@@ -1,9 +1,35 @@
 {% extends 'main.html' %}
 
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/styles/register.css' %}">
+{% endblock extra_css %}
+
 {% block content %}
-<form action="" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Sign Up</button>
-</form>
+<div class="form-wrapper">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="field">
+                <div class="label-input">
+                    {{field.label_tag}}
+                    {{field}}    
+                </div>
+                
+                <div class="errorlist">
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}    
+                </div>
+                
+                <div class="helptext">
+                    {{field.help_text}}
+                </div>    
+            </div>
+        {% endfor %}
+        <button type="submit">Sign Up</button>
+    </form>    
+</div>
+
 {% endblock content %}
