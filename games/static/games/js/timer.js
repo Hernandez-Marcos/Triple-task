@@ -218,7 +218,7 @@ document.getElementById("start-game-button").addEventListener("click", () => {
     })
 })
 
-document.getElementById("play-again").addEventListener("click", () => {
+document.getElementById("play-again-button").addEventListener("click", () => {
     fetch("/games/api/timer/", {
         method: "POST",
         headers: { "X-CSRFToken": csrftoken },

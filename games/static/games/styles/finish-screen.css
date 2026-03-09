@@ -1,7 +1,15 @@
 .finish-screen {
     display: none;
     height: 100vh;
-    background-color: red;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(90deg,rgba(18, 18, 18, 1) 50%, rgba(255, 242, 0, 1) 100%);
+}
+
+#play-again-button {
+    background-color: inherit;
+    border: none;
+    font-size: 56px;
+    color: #fff200;
+    cursor: pointer;
 }
