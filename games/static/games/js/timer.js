@@ -189,7 +189,7 @@ function startTimer(timeEnd, type) {
     }, 50)
 }
 
-document.getElementById("start-game").addEventListener("click", () => {
+document.getElementById("start-game-button").addEventListener("click", () => {
     fetch("/games/api/timer/", {
         method: "POST",
         headers: { "X-CSRFToken": csrftoken },

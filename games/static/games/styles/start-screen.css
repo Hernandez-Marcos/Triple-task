@@ -5,6 +5,10 @@
     align-items: center;
 }
 
-#start-game {
-    /* poner estilos después */
+#start-game-button {
+    background-color: inherit;
+    border: none;
+    font-size: 56px;
+    color: #fff200;
+    cursor: pointer;
 }
