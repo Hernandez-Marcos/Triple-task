@@ -61,7 +61,8 @@ form button {
     background-color: #ffd900;
     border-radius: 15px;
     font-size: 36px;
-    cursor: pointer;transition: 0.2s;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 form button:hover {

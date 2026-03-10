@@ -1,15 +1,64 @@
 .finish-screen {
     display: none;
-    height: 100vh;
+    height: 93vh;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(90deg,rgba(18, 18, 18, 1) 50%, rgba(255, 242, 0, 1) 100%);
+    /*background: linear-gradient(90deg,rgba(18, 18, 18, 1) 50%, rgba(255, 242, 0, 1) 100%);*/
+    background-color: #121212;
+    position: relative;
+}
+
+.finish-card {
+    height: 60%;
+    width: 30%;
+    border-radius: 20px;
+    background-color: #121212;
+    box-shadow: 0 0 30px rgba(255,242,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sans-serif
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    border-bottom: 2px solid rgba(255,242,0,0.3);
+    border-radius: 20px;
+    height: 50%;
+    width: 100%;    
+    overflow: hidden;
+    gap: 12px 40px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.stats > div {
+    color: #fff200;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #121212;
+    padding: 25px;
 }
 
 #play-again-button {
     background-color: inherit;
     border: none;
-    font-size: 56px;
+    font-size: 32px;
     color: #fff200;
     cursor: pointer;
+    margin: auto;
+    transition: 0.2s;
 }
+
+#play-again-button:hover {
+    transform: scale(1.01);
+
+}
+
+
