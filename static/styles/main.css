@@ -17,6 +17,19 @@ h1 {
     color: white;
 }
 
+.navbar {
+    display: flex;
+    font-size: 1.1rem;
+    gap: 50px;
+    font-family: inherit;
+    font-family: sans-serif;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+}
+
 #logout-button {
     background-color: transparent;
     border: none;
