@@ -30,7 +30,7 @@ h1 {
     font-family: sans-serif;
 }
 
-#logout-button {
+#logout-button, .dropdown button {
     background-color: transparent;
     border: none;
     color: white;
@@ -41,4 +41,27 @@ h1 {
     cursor: pointer;
     box-shadow: 0 0 30px rgba(255,242,0,0.3);
     background-color: #ffd90020;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    translate: -20px;
+    background-color: #1E1E1E;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    z-index: 10;
+
+}
+
+.dropdown:hover .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
