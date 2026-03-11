@@ -13,12 +13,17 @@
 <body>
     <div class="main-wrapper">
         <h1>Triple Task</h1>
-        {% if request.user.is_authenticated %}
-            <form action="{% url 'accounts:logout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" id="logout-button">Logout</button>
-            </form>
-        {% endif %} 
+
+        <div class="navbar">
+            <a href="{% url 'ranking' %}">Ranking</a>
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'accounts:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" id="logout-button">Logout</button>
+                </form>
+            {% endif %}     
+        </div>
+        
     </div>
     
     {% block content %}
