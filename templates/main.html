@@ -17,10 +17,17 @@
         <div class="navbar">
             <a href="{% url 'ranking' %}">Ranking</a>
             {% if request.user.is_authenticated %}
-                <form action="{% url 'accounts:logout' %}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" id="logout-button">Logout</button>
-                </form>
+                <div class="dropdown">
+                    <button>{{request.user}} ▼</button>
+                    <div class="menu">
+                        <a href="{% url 'accounts:profile' %}">Profile</a>
+
+                        <form action="{% url 'accounts:logout' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" id="logout-button">Logout</button>
+                        </form>    
+                    </div>
+                </div>
             {% endif %}     
         </div>
         

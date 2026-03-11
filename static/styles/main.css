@@ -37,7 +37,7 @@ h1 {
     font-size: 1.1rem;
 }
 
-#logout-button:hover {
+#logout-button:hover, .navbar a:hover {
     cursor: pointer;
     box-shadow: 0 0 30px rgba(255,242,0,0.3);
     background-color: #ffd90020;
