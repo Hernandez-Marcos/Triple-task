@@ -46,6 +46,10 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+LOGIN_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "/games/"
+LOGOUT_REDIRECT_URL = "/games/"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

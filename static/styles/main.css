@@ -28,6 +28,7 @@ h1 {
     gap: 50px;
     font-family: inherit;
     font-family: sans-serif;
+    color: white;
 }
 
 #logout-button, .dropdown button {

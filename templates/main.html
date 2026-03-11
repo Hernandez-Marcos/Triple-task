@@ -28,7 +28,11 @@
                         </form>    
                     </div>
                 </div>
-            {% endif %}     
+            {% else %}
+                <div>
+                    <a href="{% url 'accounts:login' %}">Login</a> / <a href="{% url 'accounts:register' %}">Sign up</a>
+                </div>
+            {% endif %}
         </div>
         
     </div>
