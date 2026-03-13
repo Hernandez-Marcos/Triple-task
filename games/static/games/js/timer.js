@@ -6,7 +6,8 @@ window.gameState = {
         grid: null,
         pattern: null,
     },
-    score: 0
+    score: 0,
+    gameEnded: false
 }
 
 function getCookie(name) {
@@ -42,6 +43,13 @@ const timerConfig = {
                 headers: { "X-CSRFToken": window.csrftoken },
                 mode: "same-origin"
             })
+
+            window.gameState.gameEnded = true
+
+            for (const id of Object.values(activeTimers)) {
+                console.log("clearing", id)
+                clearInterval(id)
+            }
             
             const finishScreenEl = document.querySelector(".finish-screen")
             finishScreenEl.style.display = "flex"
@@ -176,6 +184,8 @@ function startTimer(timeEnd, type) {
         clearInterval(activeTimers[type])
     }
 
+    if (window.gameState.gameEnded) return
+
     activeTimers[type] = setInterval(() => {
         const timeRemaining = window.gameState.timeEnds[type] - Date.now() / 1000
         const widthPercent = (timeRemaining / totalTime) * 100
@@ -190,6 +200,8 @@ function startTimer(timeEnd, type) {
 }
 
 document.getElementById("start-game-button").addEventListener("click", () => {
+    window.gameState.gameEnded = false
+
     fetch("/games/api/timer/", {
         method: "POST",
         headers: { "X-CSRFToken": csrftoken },
@@ -219,6 +231,8 @@ document.getElementById("start-game-button").addEventListener("click", () => {
 })
 
 document.getElementById("play-again-button").addEventListener("click", () => {
+    window.gameState.gameEnded = false
+
     fetch("/games/api/timer/", {
         method: "POST",
         headers: { "X-CSRFToken": csrftoken },
