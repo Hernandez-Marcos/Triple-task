@@ -265,10 +265,18 @@ def first_pattern(request):
 
 @api_view(["POST"])
 def match_ended(request):
+    user_score_record = None
+
     if request.user.is_authenticated:
         Match.objects.create(user=request.user, score=request.session["score"])
+        if request.session["score"] > request.user.score_record:
+            request.user.score_record = request.session["score"]
+            request.user.save()
+        user_score_record = request.user.score_record
+        
     request.session["score"] = 0
-    return Response({"ok": True})
+
+    return Response({"ok": True, "user_score_record": user_score_record})
 
 def ranking(request):
     ranking = Match.objects.order_by("-score")[0:20]

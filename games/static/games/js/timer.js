@@ -35,6 +35,9 @@ const timerConfig = {
     global: {
         getEl: () => document.querySelector(".timer-bar"),
         onFinish: () => {
+            const finalScore = window.gameState.score
+            document.querySelector(".game-score").textContent = finalScore
+
             window.gameState.score = 0
             document.getElementById("score-value").textContent = 0
 
@@ -43,6 +46,11 @@ const timerConfig = {
                 headers: { "X-CSRFToken": window.csrftoken },
                 mode: "same-origin"
             })
+              .then(res => res.json())
+              .then(res => {
+                console.log(res, "ewee")
+                document.querySelector(".record-score").textContent = res.user_score_record
+              })
 
             window.gameState.gameEnded = true
 
