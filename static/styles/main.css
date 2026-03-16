@@ -18,8 +18,10 @@ a {
     color: white;
 }
 
-h1 {
+.site-title {
     color: white;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .navbar {

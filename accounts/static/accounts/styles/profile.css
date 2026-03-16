@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.profile-wrapper {
+    height: 93vh;
+    background-color: #121212;
+    padding: 40px;
+}
+
+.profile {
+    color: white;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.personal-record {
+
+}
+
+.recent-matches {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid white;
+    width: 200px;
+    border-radius: 15px;
+    padding: 40px;          
+}     

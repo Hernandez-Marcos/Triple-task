@@ -3,9 +3,21 @@
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="">
+<link rel="stylesheet" href="{% static 'accounts/styles/profile.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
-test
+<div class="profile-wrapper">
+    <div class="profile">
+        <h1>{{request.user}}</h2>
+        <span class="personal-record">Personal record: {{personal_record}}</span>
+        <h2>Recent Matches:</h2>
+        <div class="recent-matches">
+            {% for match in recent_matches %}
+                <span>{{match.score}}</span>
+            {% endfor %}
+        </div>    
+    </div>
+    
+</div>
 {% endblock content %}

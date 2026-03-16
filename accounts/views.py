@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect   
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
+from games.models import Match
 
 # Create your views here.
 
@@ -16,4 +17,8 @@ def registerAccount(request):
 
 @login_required
 def profile(request):
-    return render(request, "accounts/profile.html")
+    personal_record = request.user.score_record
+    recent_matches = Match.objects.filter(user=request.user).order_by("-score")[0:20]
+
+    context = {"personal_record": personal_record, "recent_matches": recent_matches}
+    return render(request, "accounts/profile.html", context)
