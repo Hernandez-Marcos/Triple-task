@@ -9,12 +9,16 @@
 {% block content %}
 <div class="profile-wrapper">
     <div class="profile">
-        <h1>{{request.user}}</h2>
-        <span class="personal-record">Personal record: {{personal_record}}</span>
-        <h2>Recent Matches:</h2>
+        <h1>{{request.user}}</h1>
+        <span class="personal-record">Personal record: <span class="record-value">{{personal_record}}</span></span>
+        <h2>Recent Matches</h2>
         <div class="recent-matches">
+                <span class="label">Date</span>
+                <span class="label">Score</span>    
+            
             {% for match in recent_matches %}
-                <span>{{match.score}}</span>
+                    <span>{{match.created_at|date:"M d, H:i"}}</span>
+                    <span>{{match.score}}</span>
             {% endfor %}
         </div>    
     </div>

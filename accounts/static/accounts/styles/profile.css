@@ -5,28 +5,57 @@
 }
 
 .profile-wrapper {
-    height: 93vh;
+    min-height: 93vh;
     background-color: #121212;
     padding: 40px;
 }
 
 .profile {
     color: white;
-    height: 600px;
+    height: 800px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
 .personal-record {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
 
+.record-value {
+    color: #ffd700;
+}
+
+h2 {
+    margin-top: 30px;
+    margin-bottom: 12px;
 }
 
 .recent-matches {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     border: 2px solid white;
-    width: 200px;
-    border-radius: 15px;
-    padding: 40px;          
-}     
+    height: 70%;
+    width: 100%;
+    border-radius: 15px; 
+    overflow: hidden;
+}
+
+.recent-matches span {
+
+    margin: auto;
+    border: 1px solid white;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    padding: 0px;
+
+}
+
+.label {
+    font-size: 26px;
+    font-weight: bold;
+}
