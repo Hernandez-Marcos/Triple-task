@@ -89,7 +89,7 @@ const timerConfig = {
                     body: JSON.stringify({ game: "math" }),
                     headers: {
                         "Content-Type": "application/json",
-                        "X-CSRFToken": window.csrftoken
+                        "CSRFToken": window.csrftoken
                     },
                     mode: "same-origin",
                 })
@@ -212,7 +212,7 @@ document.getElementById("start-game-button").addEventListener("click", () => {
 
     fetch("/games/api/timer/", {
         method: "POST",
-        headers: { "X-CSRFToken": csrftoken },
+        headers: { "X-CSRFToken": window.csrftoken },
         mode: "same-origin",
     }).then((res) => res.json())
     .then((res) => {
@@ -243,7 +243,7 @@ document.getElementById("play-again-button").addEventListener("click", () => {
 
     fetch("/games/api/timer/", {
         method: "POST",
-        headers: { "X-CSRFToken": csrftoken },
+        headers: { "X-CSRFToken": window.csrftoken },
         mode: "same-origin"
     }).then((res) => res.json())
     .then((res) => {
