@@ -1,18 +1,34 @@
 scoreValueEl = document.getElementById("score-value")
 
 function flashGameWrapper(el, type) {
-    const wrapper = el.closest(".game-wrapper");
+    const wrapper = el.closest(".game-wrapper")
   
-    if (!wrapper) return;
+    if (!wrapper) return
   
-    wrapper.classList.remove("flash-correcto", "flash-incorrecto");
+    wrapper.classList.remove("flash-correcto", "flash-incorrecto")
   
-    void wrapper.offsetWidth;
+    void wrapper.offsetWidth
   
     wrapper.classList.add(
       type === true ? "flash-correcto" : "flash-incorrecto"
-    );
+    )
   }
+
+const correctSound = document.getElementById("correct-sound")
+const incorrectSound = document.getElementById("incorrect-sound")
+
+function playSoundFeedback(type) {
+
+    if (type === true) {
+        correctSound.pause()
+        correctSound.currentTime = 0
+        correctSound.play()
+    } else {
+        incorrectSound.pause()
+        incorrectSound.currentTime = 0
+        incorrectSound.play()
+    }
+}
 
 // Math game
 
@@ -56,6 +72,7 @@ function handleMathGame() {
         }
 
         flashGameWrapper(document.querySelector(".math-game"), res.correct)
+        playSoundFeedback(res.correct)
 
         fetch("/games/api/game-timers/", {
             method: "POST",
@@ -156,6 +173,7 @@ function handleGridGame(event) {
         }
 
         flashGameWrapper(document.querySelector(".grid-game"), res.correct)
+        playSoundFeedback(res.correct)
 
         fetch("/games/api/game-timers/", {
             method: "POST",
@@ -254,6 +272,7 @@ function handlePatternGame(event) {
             }
 
             flashGameWrapper(document.querySelector(".pattern-game"), res.correct)
+            playSoundFeedback(res.correct)
 
             fetch("/games/api/game-timers/", {
                 method: "POST",
