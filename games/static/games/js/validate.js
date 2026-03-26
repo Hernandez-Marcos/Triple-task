@@ -1,5 +1,19 @@
 scoreValueEl = document.getElementById("score-value")
 
+function flashGameWrapper(el, type) {
+    const wrapper = el.closest(".game-wrapper");
+  
+    if (!wrapper) return;
+  
+    wrapper.classList.remove("flash-correcto", "flash-incorrecto");
+  
+    void wrapper.offsetWidth;
+  
+    wrapper.classList.add(
+      type === true ? "flash-correcto" : "flash-incorrecto"
+    );
+  }
+
 // Math game
 
 function updateMathGame(data) {
@@ -40,6 +54,8 @@ function handleMathGame() {
         } else {
             window.gameState.timeEnds["global"] = res.penalty_time_end
         }
+
+        flashGameWrapper(document.querySelector(".math-game"), res.correct)
 
         fetch("/games/api/game-timers/", {
             method: "POST",
@@ -139,6 +155,8 @@ function handleGridGame(event) {
             window.gameState.timeEnds["global"] = res.penalty_time_end
         }
 
+        flashGameWrapper(document.querySelector(".grid-game"), res.correct)
+
         fetch("/games/api/game-timers/", {
             method: "POST",
             body: JSON.stringify({ game: "grid" }),
@@ -234,6 +252,8 @@ function handlePatternGame(event) {
             } else {
                 window.gameState.timeEnds["global"] = res.penalty_time_end
             }
+
+            flashGameWrapper(document.querySelector(".pattern-game"), res.correct)
 
             fetch("/games/api/game-timers/", {
                 method: "POST",

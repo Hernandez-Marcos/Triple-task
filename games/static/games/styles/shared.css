@@ -57,3 +57,21 @@ body {
     border-radius: 15px;
     padding: 20px 20px 20px 20px;
 }
+
+.flash-correcto {
+    animation: flashCorrecto 0.5s ease;
+  }
+  
+.flash-incorrecto {
+animation: flashIncorrecto 0.5s ease;
+}
+
+@keyframes flashCorrecto {
+0% { background-color: #4CAF50; }
+100% { background-color: inherit; }
+}
+
+@keyframes flashIncorrecto {
+0% { background-color: #f44336; }
+100% { background-color: inherit; }
+}
