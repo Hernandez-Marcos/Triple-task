@@ -69,11 +69,17 @@ def validate(request):
     if expected_answer is None:
         return Response({"error": "Expected answer does not exist"}, status=400)
 
-    if timezone.now().timestamp() > request.session.get("time_end", 0):
-        print("ES ESTO")
-        print("SESSION KEY:", request.session.session_key, "time_end:", request.session.get("time_end"), "time_now:", timezone.now().timestamp())
-        return Response({"error": "time over"}, status=403)
-    
+    session_key = request.session.session_key
+    if session_key is None:
+        request.session.save()
+        session_key = request.session.session_key
+
+    lock = get_session_lock(session_key)
+    with lock:
+        session = SessionStore(session_key)
+        if timezone.now().timestamp() > session.get("time_end", 0):
+            return Response({"error": "time over"}, status=403)    
+
     if game == "math":
         answer_serializer = serializers.MathSerializer(data=request.data)
         answer_serializer.is_valid(raise_exception=True)
@@ -224,11 +230,11 @@ def timer(request):
         with lock:
             session = SessionStore(session_key)
             #start timer
-            print("POST TIMER", request.session)
             time_end = (timezone.now() + datetime.timedelta(seconds=10)).timestamp()
             session["time_end"] = time_end
             session.save()
-            request.session["time_end"] = time_end  # opcional, para sincronizar request.session
+            request.session["time_end"] = time_end # opcional, para sincronizar request.session
+            request.session.modified = False 
             return Response({
                 "ok": True,
                 "time_end": time_end
@@ -266,6 +272,8 @@ def game_timers(request):
             request.session["grid_time_end"] = grid_time_end
             request.session["pattern_time_end"] = pattern_time_end
 
+            request.session.modified = False 
+
             return Response({
                 "ok": True,
                 "math_time_end": math_time_end,
@@ -278,6 +286,8 @@ def game_timers(request):
             session[f"{game}_time_end"] = game_time_end
             session.save()
             request.session[f"{game}_time_end"] = game_time_end
+
+            request.session.modified = False 
 
             return Response({
                 "ok": True,
