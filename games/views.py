@@ -70,6 +70,8 @@ def validate(request):
         return Response({"error": "Expected answer does not exist"}, status=400)
 
     if timezone.now().timestamp() > request.session.get("time_end", 0):
+        print("ES ESTO")
+        print("SESSION KEY:", request.session.session_key, "time_end:", request.session.get("time_end"), "time_now:", timezone.now().timestamp())
         return Response({"error": "time over"}, status=403)
     
     if game == "math":
@@ -212,14 +214,25 @@ def timer(request):
             "time_remaining": None
         })
     if request.method == "POST":
-        #start timer
-        print("POST TIMER", request.session)
-        time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
-        request.session["time_end"] = time_end
-        return Response({
-            "ok": True,
-            "time_end": time_end
-        })
+        session_key = request.session.session_key
+        if session_key is None:
+            request.session.save()
+            session_key = request.session.session_key
+
+        lock = get_session_lock(session_key)
+
+        with lock:
+            session = SessionStore(session_key)
+            #start timer
+            print("POST TIMER", request.session)
+            time_end = (timezone.now() + datetime.timedelta(seconds=10)).timestamp()
+            session["time_end"] = time_end
+            session.save()
+            request.session["time_end"] = time_end  # opcional, para sincronizar request.session
+            return Response({
+                "ok": True,
+                "time_end": time_end
+            })
 
 @api_view(['POST'])
 def game_timers(request):
@@ -228,31 +241,48 @@ def game_timers(request):
 
     game = serializer.validated_data["game"]
 
-    if game == "all":
+    session_key = request.session.session_key
+    if session_key is None:
+        request.session.save()
+        session_key = request.session.session_key
 
-        math_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
-        grid_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
-        pattern_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+    lock = get_session_lock(session_key)
 
-        request.session["math_time_end"] = math_time_end
-        request.session["grid_time_end"] = grid_time_end
-        request.session["pattern_time_end"] = pattern_time_end
+    with lock:
+        session = SessionStore(session_key)
 
-        return Response({
-            "ok": True,
-            "math_time_end": math_time_end,
-            "grid_time_end": grid_time_end,
-            "pattern_time_end": pattern_time_end
-        })
-    else:
-        game_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+        if game == "all":
 
-        request.session[f"{game}_time_end"] = game_time_end
+            math_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+            grid_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+            pattern_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
 
-        return Response({
-            "ok": True,
-            f"{game}_time_end": game_time_end
-        })
+            session["math_time_end"] = math_time_end
+            session["grid_time_end"] = grid_time_end
+            session["pattern_time_end"] = pattern_time_end
+            session.save()
+
+            request.session["math_time_end"] = math_time_end
+            request.session["grid_time_end"] = grid_time_end
+            request.session["pattern_time_end"] = pattern_time_end
+
+            return Response({
+                "ok": True,
+                "math_time_end": math_time_end,
+                "grid_time_end": grid_time_end,
+                "pattern_time_end": pattern_time_end
+            })
+        else:
+            game_time_end = (timezone.now() + datetime.timedelta(seconds=5)).timestamp()
+
+            session[f"{game}_time_end"] = game_time_end
+            session.save()
+            request.session[f"{game}_time_end"] = game_time_end
+
+            return Response({
+                "ok": True,
+                f"{game}_time_end": game_time_end
+            })
 
 
 

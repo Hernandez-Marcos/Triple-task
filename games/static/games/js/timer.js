@@ -89,7 +89,7 @@ const timerConfig = {
                     body: JSON.stringify({ game: "math" }),
                     headers: {
                         "Content-Type": "application/json",
-                        "CSRFToken": window.csrftoken
+                        "X-CSRFToken": window.csrftoken
                     },
                     mode: "same-origin",
                 })
@@ -183,11 +183,12 @@ function startTimer(timeEnd, type) {
     if (!timeEnd) return
 
     window.gameState.timeEnds[type] = timeEnd
+    
     //convert miliseconds to seconds
     let timeNow = Date.now() / 1000
 
     const totalTime = timeEnd - timeNow
-
+    console.log("Timer set:", type, "timeEnd:", timeEnd, "totalTime:", totalTime)
     if (activeTimers[type]) {
         clearInterval(activeTimers[type])
     }
@@ -210,19 +211,13 @@ function startTimer(timeEnd, type) {
 document.getElementById("start-game-button").addEventListener("click", () => {
     window.gameState.gameEnded = false
 
-    fetch("/games/api/timer/", {
+    const fetchGlobalTimer = fetch("/games/api/timer/", {
         method: "POST",
         headers: { "X-CSRFToken": window.csrftoken },
         mode: "same-origin",
     }).then((res) => res.json())
-    .then((res) => {
-        const startScreenEl = document.querySelector(".start-screen")
-        startScreenEl.style.display = "none"
-        startTimer(res.time_end, "global")
-        getFirstPattern()
-    })
 
-    fetch("/games/api/game-timers/", {
+    const fetchGameTimers = fetch("/games/api/game-timers/", {
         method: "POST",
         body: JSON.stringify({ game: "all" }),
         headers: {
@@ -231,29 +226,32 @@ document.getElementById("start-game-button").addEventListener("click", () => {
         },
         mode: "same-origin",
     }).then((res) => res.json())
-    .then((res) => {
-        startTimer(res.math_time_end, "math")
-        startTimer(res.grid_time_end, "grid")
-        startTimer(res.pattern_time_end, "pattern")
-    })
+
+    Promise.all([fetchGlobalTimer, fetchGameTimers])
+        .then(([globalTimerData, gameTimersData]) => {
+                startTimer(globalTimerData.time_end, "global")
+        
+                startTimer(gameTimersData.math_time_end, "math")
+                startTimer(gameTimersData.grid_time_end, "grid")
+                startTimer(gameTimersData.pattern_time_end, "pattern")
+        
+                getFirstPattern()
+        
+                const startScreenEl = document.querySelector(".start-screen")
+                startScreenEl.style.display = "none"
+        }) 
 })
 
 document.getElementById("play-again-button").addEventListener("click", () => {
     window.gameState.gameEnded = false
 
-    fetch("/games/api/timer/", {
+    const fetchGlobalTimer = fetch("/games/api/timer/", {
         method: "POST",
         headers: { "X-CSRFToken": window.csrftoken },
         mode: "same-origin"
     }).then((res) => res.json())
-    .then((res) => {
-        const finishScreenEl = document.querySelector(".finish-screen")
-        finishScreenEl.style.display = "none"
-        startTimer(res.time_end, "global")
-        getFirstPattern()
-    })
 
-    fetch("/games/api/game-timers/", {
+    const fetchGameTimers = fetch("/games/api/game-timers/", {
         method: "POST",
         body: JSON.stringify({ game: "all" }),
         headers: {
@@ -262,11 +260,20 @@ document.getElementById("play-again-button").addEventListener("click", () => {
         },
         mode: "same-origin",
     }).then((res) => res.json())
-    .then((res) => {
-        startTimer(res.math_time_end, "math")
-        startTimer(res.grid_time_end, "grid")
-        startTimer(res.pattern_time_end, "pattern")
-    })
+
+    Promise.all([fetchGlobalTimer, fetchGameTimers])
+        .then(([globalTimerData, gameTimersData]) => {
+            startTimer(globalTimerData.time_end, "global")
+
+            startTimer(gameTimersData.math_time_end, "math")
+            startTimer(gameTimersData.grid_time_end, "grid")
+            startTimer(gameTimersData.pattern_time_end, "pattern")
+
+            getFirstPattern()
+
+            const finishScreenEl = document.querySelector(".finish-screen")
+            finishScreenEl.style.display = "none"
+        })
 })
 
 function getFirstPattern() {
