@@ -51,7 +51,7 @@ def apply_penalty_to_global_timer(request):
 
         if actual_time_end is None:
             raise ValueError("Game not initialized")
-        new_time_end = actual_time_end - 5
+        new_time_end = actual_time_end - 7
         session["time_end"] = new_time_end
         session.save()
         request.session["time_end"] = new_time_end

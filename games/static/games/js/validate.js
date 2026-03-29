@@ -217,7 +217,7 @@ function updatePatternGame(data) {
             setTimeout(() => {
                 patternContainer.style.backgroundColor = "#1E1E1E"
                 patternContainer.classList.remove("pulse");
-                window.gameState.isPatternShowing = false
+                window.gameState.patternGame.isPatternShowing = false
             }, 750)
 
         }            
@@ -242,7 +242,7 @@ function handlePatternGame(event) {
     }
 
     if (patternAnswer.length === 3) {
-        window.gameState.isPatternShowing = true
+        window.gameState.patternGame.isPatternShowing = true
         
         fetch("/games/api/validate/", {
             method: "POST",
@@ -296,7 +296,7 @@ function handlePatternGame(event) {
 }
 
 document.querySelector(".pattern-game").addEventListener("click", function(event) {
-    if (window.gameState.isPatternShowing) {
+    if (window.gameState.patternGame.isPatternShowing) {
         return
     }
     handlePatternGame(event)

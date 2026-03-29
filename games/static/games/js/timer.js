@@ -1,11 +1,14 @@
 window.gameState = {
-    isPatternShowing: true,
+    patternGame: {
+        isPatternShowing: true,
+        intervalId: null
+    },
     timeEnds: {
         global: null,
         math: null,
         grid: null,
         pattern: null,
-    },
+    },    
     score: 0,
     gameEnded: false
 }
@@ -298,7 +301,7 @@ function getFirstPattern() {
                 setTimeout(() => {
                     patternContainer.style.backgroundColor = "#1E1E1E"
                     patternContainer.classList.remove("pulse");
-                    window.gameState.isPatternShowing = false
+                    window.gameState.patternGame.isPatternShowing = false
                 }, 750)
 
             }            
