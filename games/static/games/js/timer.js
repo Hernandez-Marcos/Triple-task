@@ -1,7 +1,8 @@
 window.gameState = {
     patternGame: {
         isPatternShowing: true,
-        intervalId: null
+        intervalId: null,
+        timeoutId: null,
     },
     timeEnds: {
         global: null,
@@ -32,6 +33,16 @@ window.csrftoken = getCookie('csrftoken');
 
 const activeTimers = {
 
+}
+
+function clearPatternGame() {
+    clearInterval(window.gameState.patternGame.intervalId)
+    clearTimeout(window.gameState.patternGame.timeoutId)
+
+    const patternContainer = document.querySelector(".pattern-game")
+
+    patternContainer.style.backgroundColor = "#1E1E1E"
+    patternContainer.classList.remove("pulse");
 }
 
 const timerConfig = {
@@ -266,6 +277,8 @@ document.getElementById("play-again-button").addEventListener("click", () => {
 
     Promise.all([fetchGlobalTimer, fetchGameTimers])
         .then(([globalTimerData, gameTimersData]) => {
+            clearPatternGame()
+
             startTimer(globalTimerData.time_end, "global")
 
             startTimer(gameTimersData.math_time_end, "math")
@@ -283,11 +296,21 @@ function getFirstPattern() {
     const patternContainer = document.querySelector(".pattern-game")
     let count = 0
 
+    if (window.gameState.patternGame.intervalId) {
+        clearInterval(window.gameState.patternGame.intervalId)
+    }
+
+    if (window.gameState.patternGame.timeoutId) {
+        clearTimeout(window.gameState.patternGame.timeoutId)
+    }
+
+    window.gameState.patternGame.isPatternShowing = true
+
     fetch("/games/api/first-pattern/", {
         method: "GET"
     }).then((res) => res.json())
     .then((res) => {
-        const intervalId = setInterval(() => {
+        window.gameState.patternGame.intervalId = setInterval(() => {
             patternContainer.style.backgroundColor = res.pattern[count]
             count++
 
@@ -297,8 +320,8 @@ function getFirstPattern() {
             patternContainer.classList.add("pulse");
 
             if (count >= res.pattern.length) {
-                clearInterval(intervalId)
-                setTimeout(() => {
+                clearInterval(window.gameState.patternGame.intervalId)
+                window.gameState.patternGame.timeoutId = setTimeout(() => {
                     patternContainer.style.backgroundColor = "#1E1E1E"
                     patternContainer.classList.remove("pulse");
                     window.gameState.patternGame.isPatternShowing = false

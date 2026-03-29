@@ -203,7 +203,15 @@ function updatePatternGame(data) {
     const patternContainer = document.querySelector(".pattern-game")
     let count = 0
 
-    const intervalId = setInterval(() => {
+    if (window.gameState.patternGame.intervalId) {
+        clearInterval(window.gameState.patternGame.intervalId)
+    }
+
+    if (window.gameState.patternGame.timeoutId) {
+        clearTimeout(window.gameState.patternGame.timeoutId)
+    }
+
+    window.gameState.patternGame.intervalId = setInterval(() => {
         patternContainer.style.backgroundColor = data.pattern[count]
         count++
 
@@ -213,8 +221,9 @@ function updatePatternGame(data) {
         patternContainer.classList.add("pulse");
 
         if (count >= data.pattern.length) {
-            clearInterval(intervalId)
-            setTimeout(() => {
+            clearInterval(window.gameState.patternGame.intervalId)
+
+            window.gameState.patternGame.timeoutId = setTimeout(() => {
                 patternContainer.style.backgroundColor = "#1E1E1E"
                 patternContainer.classList.remove("pulse");
                 window.gameState.patternGame.isPatternShowing = false
