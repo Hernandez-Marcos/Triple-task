@@ -204,6 +204,10 @@ def next_game(request):
             "penalty_time_end": penalty_time_end
         })
 
+@api_view(['GET'])
+def server_time(request):
+    return Response({"server_time": timezone.now().timestamp()})
+
 @api_view(['GET', 'POST'])
 def timer(request):
     if request.method == "GET":
