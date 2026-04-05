@@ -14,6 +14,25 @@ window.gameState = {
     gameEnded: false
 }
 
+window.timeOffset = 0
+
+function syncTime() {
+    const t1 = Date.now() / 1000
+
+    return fetch("/games/api/server-time/")
+      .then((res) => res.json())
+      .then((res) => {
+        const t2 = Date.now() / 1000
+        const midPoint = (t1+t2)/2
+        window.timeOffset = res.server_time - midPoint
+        console.log(window.timeOffset )
+      })
+}
+
+function getServerNow() {
+    return Date.now() / 1000 + window.timeOffset
+}
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -197,11 +216,8 @@ function startTimer(timeEnd, type) {
     if (!timeEnd) return
 
     window.gameState.timeEnds[type] = timeEnd
-    
-    //convert miliseconds to seconds
-    let timeNow = Date.now() / 1000
 
-    const totalTime = timeEnd - timeNow
+    const totalTime = timeEnd - getServerNow()
     console.log("Timer set:", type, "timeEnd:", timeEnd, "totalTime:", totalTime)
     if (activeTimers[type]) {
         clearInterval(activeTimers[type])
@@ -210,7 +226,7 @@ function startTimer(timeEnd, type) {
     if (window.gameState.gameEnded) return
 
     activeTimers[type] = setInterval(() => {
-        const timeRemaining = window.gameState.timeEnds[type] - Date.now() / 1000
+        const timeRemaining = window.gameState.timeEnds[type] - getServerNow()
         const widthPercent = (timeRemaining / totalTime) * 100
         timerBarEl.style.width = widthPercent + "%"
 
@@ -222,8 +238,10 @@ function startTimer(timeEnd, type) {
     }, 50)
 }
 
-document.getElementById("start-game-button").addEventListener("click", () => {
+document.getElementById("start-game-button").addEventListener("click", async () => {
     window.gameState.gameEnded = false
+
+    await syncTime()
 
     const fetchGlobalTimer = fetch("/games/api/timer/", {
         method: "POST",
@@ -256,8 +274,10 @@ document.getElementById("start-game-button").addEventListener("click", () => {
         }) 
 })
 
-document.getElementById("play-again-button").addEventListener("click", () => {
+document.getElementById("play-again-button").addEventListener("click", async () => {
     window.gameState.gameEnded = false
+
+    await syncTime()
 
     const fetchGlobalTimer = fetch("/games/api/timer/", {
         method: "POST",
