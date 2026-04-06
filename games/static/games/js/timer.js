@@ -1,3 +1,5 @@
+import { flashGameWrapper, playSoundFeedback } from './validate.js'
+
 window.gameState = {
     patternGame: {
         isPatternShowing: true,
@@ -100,6 +102,9 @@ const timerConfig = {
     math: {
         getEl: () => document.getElementById("math-timer"),
         onFinish: () => {
+            flashGameWrapper(document.querySelector(".math-game"), false)
+            playSoundFeedback(false)
+
             fetch("/games/api/next-game/", {
                 method: "POST",
                 body: JSON.stringify({ game: "math" }),
@@ -137,6 +142,9 @@ const timerConfig = {
     grid: {
         getEl: () => document.getElementById("grid-timer"),
         onFinish: () => {
+            flashGameWrapper(document.querySelector(".grid-game"), false)
+            playSoundFeedback(false)
+
             fetch("/games/api/next-game/", {
                 method: "POST",
                 body: JSON.stringify({ game: "grid" }),
@@ -174,6 +182,9 @@ const timerConfig = {
     pattern: {
         getEl: () => document.getElementById("pattern-timer"),
         onFinish: () => {
+            flashGameWrapper(document.querySelector(".pattern-game"), false)
+            playSoundFeedback(false)
+
             fetch("/games/api/next-game/", {
                 method: "POST",
                 body: JSON.stringify({ game: "pattern" }),
@@ -351,3 +362,5 @@ function getFirstPattern() {
         }, 750)
     })
 }
+
+window.startTimer = startTimer

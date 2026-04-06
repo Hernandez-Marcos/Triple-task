@@ -2,8 +2,7 @@
 {% load static %}
 
 {% block scripts %}
-<script src="{% static 'games/js/timer.js' %}" defer></script>
-<script src="{% static 'games/js/validate.js' %}" defer></script>
+<script type="module" src="{% static 'games/js/timer.js' %}" defer></script>
 {% endblock scripts %}
 
 {% block extra_css %}

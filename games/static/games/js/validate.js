@@ -1,6 +1,6 @@
-scoreValueEl = document.getElementById("score-value")
+const scoreValueEl = document.getElementById("score-value")
 
-function flashGameWrapper(el, type) {
+export function flashGameWrapper(el, type) {
     const wrapper = el.closest(".game-wrapper")
   
     if (!wrapper) return
@@ -17,7 +17,7 @@ function flashGameWrapper(el, type) {
 const correctSound = document.getElementById("correct-sound")
 const incorrectSound = document.getElementById("incorrect-sound")
 
-function playSoundFeedback(type) {
+export function playSoundFeedback(type) {
 
     if (type === true) {
         correctSound.pause()
@@ -310,3 +310,7 @@ document.querySelector(".pattern-game").addEventListener("click", function(event
     }
     handlePatternGame(event)
 })
+
+window.updateMathGame = updateMathGame
+window.updateGridGame = updateGridGame
+window.updatePatternGame = updatePatternGame
