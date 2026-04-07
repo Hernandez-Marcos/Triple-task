@@ -74,11 +74,15 @@ def validate(request):
         request.session.save()
         session_key = request.session.session_key
 
-    lock = get_session_lock(session_key)
-    with lock:
-        session = SessionStore(session_key)
-        if timezone.now().timestamp() > session.get("time_end", 0):
-            return Response({"error": "time over"}, status=403)    
+    session = SessionStore(session_key)
+    if timezone.now().timestamp() > session.get("time_end", 0):
+        return Response({"error": "time over"}, status=403) 
+    
+    game_time_end = request.session.get(f"{game}_time_end")
+    if game_time_end is None:
+        return Response({"error": "Game not initialized"}, status=400)
+    if timezone.now().timestamp() > game_time_end + 0.15:
+        return Response({"error": "Should call onFinish/next-game"}, status=400)
 
     if game == "math":
         answer_serializer = serializers.MathSerializer(data=request.data)
@@ -166,17 +170,10 @@ def next_game(request):
 
     game = serializer.validated_data["game"]
 
-    game_time_end = request.session.get(f"{game}_time_end")
-    if game_time_end is None:
-        return Response({"error": "Game not initialized"}, status=400)
-    if game_time_end <= timezone.now().timestamp():
-        try:
-            penalty_time_end = apply_penalty_to_global_timer(request)
-        except ValueError as e:
-            return Response({"error": str(e)}, status=400)
-    else:
-        penalty_time_end = None
-
+    try:
+        penalty_time_end = apply_penalty_to_global_timer(request)
+    except ValueError as e:
+        return Response({"error": str(e)}, status=400)
 
     if game == "math":
         new_math_problem = math_game.generate_math_game()
