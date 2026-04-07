@@ -119,6 +119,7 @@ const timerConfig = {
                 updateMathGame(res)
 
                 console.log("holaa math", window.gameState.timeEnds["global"])
+                console.log(res.penalty_time_end)
                 window.gameState.timeEnds["global"] = res.penalty_time_end  
                 console.log("holaa math", window.gameState.timeEnds["global"])              
 
@@ -159,6 +160,7 @@ const timerConfig = {
                 updateGridGame(res)
 
                 console.log("holaaa grid", window.gameState.timeEnds["global"])
+                console.log(res.penalty_time_end)
                 window.gameState.timeEnds["global"] = res.penalty_time_end  
                 console.log("holaaa grid", window.gameState.timeEnds["global"])   
 
@@ -199,6 +201,7 @@ const timerConfig = {
                 updatePatternGame(res)
                 
                 console.log("holaaa pattern", window.gameState.timeEnds["global"])
+                console.log(res.penalty_time_end)
                 window.gameState.timeEnds["global"] = res.penalty_time_end  
                 console.log("holaaa pattern", window.gameState.timeEnds["global"])   
 
