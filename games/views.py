@@ -28,6 +28,8 @@ def index(request):
     request.session["expected_grid_answer"] = grid["answer"]
     request.session["expected_pattern_answer"] = pattern["answer"]
 
+    request.session["score"] = 0
+
     context = {
         'grid': grid["grid"],
         'math_problem': math_problem["problem"],
