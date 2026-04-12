@@ -129,11 +129,12 @@ Open: http://127.0.0.1:8000/games/
 
 Create a `.env` file in the project root:
 
-SECRET_KEY=your_secret_key_here  # any random string works for development
-DEBUG=True  
-ALLOWED_HOSTS=127.0.0.1,localhost  
-DATABASE_URL=sqlite:///db.sqlite3  
-
+```env
+SECRET_KEY=your_secret_key_here
+DEBUG=True
+ALLOWED_HOSTS=127.0.0.1,localhost
+DATABASE_URL=sqlite:///db.sqlite3
+```
 ---
 
 ## Current Status
