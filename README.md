@@ -111,15 +111,17 @@ The player must manage all three at once under a shared global timer, with penal
 
 ## Running Locally
 
+```bash
 git clone https://github.com/Hernandez-Marcos/Triple-task
-cd Triple-task  
+cd Triple-task
 
-python -m venv .venv  
-source .venv/bin/activate  # Windows: .venv\Scripts\activate  
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 
-pip install -r requirements.txt  
-python manage.py migrate  
-python manage.py runserver  
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
 
 Open: http://127.0.0.1:8000/games/
 
@@ -129,11 +131,12 @@ Open: http://127.0.0.1:8000/games/
 
 Create a `.env` file in the project root:
 
-SECRET_KEY=your_secret_key_here  # any random string works for development
-DEBUG=True  
-ALLOWED_HOSTS=127.0.0.1,localhost  
-DATABASE_URL=sqlite:///db.sqlite3  
-
+```env
+SECRET_KEY=your_secret_key_here
+DEBUG=True
+ALLOWED_HOSTS=127.0.0.1,localhost
+DATABASE_URL=sqlite:///db.sqlite3
+```
 ---
 
 ## Current Status
