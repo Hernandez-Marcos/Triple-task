@@ -322,5 +322,5 @@ def match_ended(request):
     return Response({"ok": True, "user_score_record": user_score_record})
 
 def ranking(request):
-    ranking = Match.objects.order_by("-score")[0:20]
+    ranking = Match.objects.order_by("-score", "created_at")[0:20]
     return render(request, "games/ranking.html", {"ranking": ranking})
