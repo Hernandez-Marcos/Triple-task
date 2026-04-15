@@ -1,20 +1,23 @@
 # Triple Task
 
-A real-time browser game built with **Django + Django REST Framework + vanilla JavaScript**, where players solve **three parallel challenges** under time pressure.
+## 🎮 Gameplay Demo
+https://youtu.be/1N44tL2luz8
 
 **Live Demo:** https://triple-task.onrender.com/games/
 
 ---
 
-## What Triple Task is
+## Overview
 
-Triple Task is a cognitive challenge game where three mini-games run simultaneously:
+A real-time browser game built with **Django + Django REST Framework + vanilla JavaScript**.
+
+Players must solve **three simultaneous challenges under pressure**:
 
 - **Math Game** → fast multiplication problems  
 - **Grid Game** → identify the dominant color in a grid  
 - **Pattern Game** → memorize and reproduce sequences  
 
-The player must manage all three at once under a shared global timer, with penalties, per-game timers, and persistent scoring.
+The player must manage all three simultaneously under a shared global timer, with penalties, per-game timers, and persistent scoring.
 
 ---
 
