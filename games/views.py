@@ -60,6 +60,9 @@ def apply_penalty_to_global_timer(request):
 
     return request.session["time_end"]
 
+
+time_tolerance = 0.15
+
 @api_view(['POST'])
 def validate(request):
     serializer = serializers.GameNameSerializer(data=request.data)
@@ -83,7 +86,7 @@ def validate(request):
     game_time_end = request.session.get(f"{game}_time_end")
     if game_time_end is None:
         return Response({"error": "Game not initialized"}, status=400)
-    if timezone.now().timestamp() > game_time_end + 0.15:
+    if timezone.now().timestamp() > game_time_end + time_tolerance:
         return Response({"error": "Should call onFinish/next-game"}, status=400)
 
     if game == "math":
