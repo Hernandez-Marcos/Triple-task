@@ -4,7 +4,7 @@
 }
 
 body {
-    overflow: hidden
+    overflow: hidden;
 }
 
 .game-layout {
@@ -56,6 +56,8 @@ body {
     background-color: #1E1E1E;
     border-radius: 15px;
     padding: 20px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .flash-correcto {
@@ -75,3 +77,4 @@ animation: flashIncorrecto 0.5s ease;
 0% { background-color: #f44336; }
 100% { background-color: inherit; }
 }
+

@@ -20,3 +20,10 @@
 .square.red {
     background-color: red;
 }
+
+@media (max-width: 1500px) {
+    .grid-game {
+        height: 70%;
+        margin: auto; 
+    }    
+}

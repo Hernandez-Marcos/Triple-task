@@ -14,7 +14,6 @@
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    
     height: 50%;
 }
 
@@ -22,6 +21,7 @@
     font-size: 7em;
     color: white;
     height: 50%;
+    white-space: nowrap;
 }
 
 .answer-and-submit {
