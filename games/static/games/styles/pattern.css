@@ -3,9 +3,9 @@
     align-items: center;
     justify-content: space-around;
     position: relative;
-    flex: 1;
     gap: 15px;
     height: 80%;
+    width: 100%;
     transition: background-color 0.2s ease;
     background-color: #1E1E1E;
     border-radius: 15px;
@@ -66,4 +66,12 @@
 
 .yellow {
     background-color: yellow;
+}
+
+
+@media (max-height: 750px) {
+    .pattern-game {
+        height: 70%;
+        margin: auto;
+    }
 }

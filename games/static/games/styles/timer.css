@@ -15,3 +15,9 @@
     margin-top: 20px;
     margin-bottom: 60px;
 }
+
+@media (max-height: 750px) {
+    .game-timer-bar {
+        margin-bottom: 40px;
+    }
+}

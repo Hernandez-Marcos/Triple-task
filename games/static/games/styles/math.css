@@ -1,5 +1,4 @@
 .math-game {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -58,6 +57,12 @@ input::-webkit-inner-spin-button  {
     vertical-align: middle;
 }
 
+#submit-math-answer, #delete-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .math-keypad {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -77,4 +82,28 @@ input::-webkit-inner-spin-button  {
 .math-keypad .keypad-button:first-child {
     grid-row: 4;
     grid-column: 1/3;
+}
+
+
+
+@media (max-height: 750px) {
+    .math-game {
+        height: 70%;
+        margin: auto;
+    }
+
+    .math-keypad .keypad-button {
+        height: 40px;
+    }
+
+    .problem {
+        font-size: 6em;
+    }
+
+    #submit-math-answer {
+        font-size: 2.5rem
+    }    
+
+    .math-keypad {
+    }
 }
