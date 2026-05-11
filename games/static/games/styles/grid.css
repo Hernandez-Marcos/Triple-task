@@ -6,6 +6,7 @@
     position: relative;
     height: 80%;
     border-radius: 15px;
+    
 }
 
 .square {
@@ -26,4 +27,17 @@
         height: 70%;
         margin: auto; 
     }    
+}
+
+@media (max-width: 1250px) {
+    .grid-game {
+        height: 60%;
+    }    
+}
+
+@media (max-height: 750px) {
+    .grid-game {
+        height: 70%;
+        margin: auto;
+    }
 }

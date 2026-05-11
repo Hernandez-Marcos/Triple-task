@@ -102,8 +102,19 @@ input::-webkit-inner-spin-button  {
 
     #submit-math-answer {
         font-size: 2.5rem
-    }    
+    }
+}
 
-    .math-keypad {
+@media (max-width: 1250px) {
+    .problem {
+        font-size: 5em;
+    }
+
+    #math-answer {
+        font-size: 2.5rem;
+    }
+
+    #submit-math-answer {
+        font-size: 2rem
     }
 }
